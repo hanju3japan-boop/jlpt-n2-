@@ -710,6 +710,7 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
       <textarea class="sakubun-input" id="sa3" placeholder="자유롭게 써보세요..." style="min-height:120px;"></textarea>
       <div style="margin-top:10px;display:flex;gap:8px;">
         <button class="btn btn-acc" onclick="sbcheck('sa3',3)">제출 +30pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa3','新商品に関して、ご報告いたします。価格について、バイヤーに相談させていただきます。担当者によると、売れ行きは好調だとのことです。')">모범 답안</button>
       </div>
       <div class="qfeedback" id="sf3"></div>
     </div>
@@ -935,15 +936,68 @@ function rchk(el,correct){
 }
 
 // ══ 작문 ══
-function sbcheck(id,n){
+const SB={
+  sa1:{pts:20, req:[['に関して','「〜に関して」를 사용해보세요'],['報告','「報告」를 넣어보세요 (例: ご報告いたします)']]},
+  sa2:{pts:20, req:[['によると','「〜によると」를 사용해보세요'],['とのこと','문장 끝을 「〜とのことです」로 만들어보세요']]},
+  sa3:{pts:30, any:[['報告','報告(보고)'],['相談','相談(상담)'],['に関して','に関して(~에 관해서)'],['とのこと','とのこと(~라고 한다)']], anyMin:3, sent:3}
+};
+let sbAwarded={};
+function sbEval(id){
   const v=document.getElementById(id).value.trim();
-  const fb=document.getElementById('sf'+n);
-  if(v.length<5){fb.className='qfeedback ng';fb.textContent='문장을 입력해주세요.';return;}
-  const pts=n===3?30:20;
-  addPt(pts); toast('제출 완료! +'+pts+'pt 🎉','ok');
-  fb.className='qfeedback ok';
-  fb.textContent='✅ 제출되었습니다! 모범 답안과 비교해보세요.';
+  const cfg=SB[id]; const lines=[]; let pass=true;
+  if(cfg.req){
+    cfg.req.forEach(([pat,tip])=>{
+      if(v.includes(pat)) lines.push('✅ 「'+pat+'」 사용');
+      else {lines.push('❌ '+tip); pass=false;}
+    });
+  }
+  if(cfg.any){
+    const used=cfg.any.filter(([pat])=>v.includes(pat));
+    used.forEach(([pat])=>lines.push('✅ 「'+pat+'」 사용'));
+    if(used.length<cfg.anyMin){
+      pass=false;
+      const missing=cfg.any.filter(([pat])=>!v.includes(pat)).map(([,l])=>l).join(' · ');
+      lines.push('❌ 오늘의 표현 '+used.length+'/'+cfg.anyMin+'개 사용 — 후보: '+missing);
+    }
+  }
+  if(cfg.sent){
+    const cnt=v.split('。').filter(s=>s.trim().length>1).length;
+    if(cnt>=cfg.sent) lines.push('✅ 문장 '+cnt+'개 완성');
+    else {lines.push('❌ 문장이 '+cnt+'개예요 — 「。」로 끝나는 문장을 '+cfg.sent+'개 만들어보세요'); pass=false;}
+  }
+  return {v:v, lines:lines, pass:pass};
 }
+function sbcheck(id,n){
+  const fb=document.getElementById('sf'+n);
+  const r=sbEval(id);
+  if(r.v.length<5){fb.className='qfeedback ng';fb.textContent='문장을 입력해주세요.';return;}
+  if(r.pass){
+    if(!sbAwarded[id]){ addPt(SB[id].pts); sbAwarded[id]=true; toast('통과! +'+SB[id].pts+'pt 🎉','ok'); }
+    else toast('이미 점수를 받은 문제예요 ✅','info');
+    fb.className='qfeedback ok';
+    fb.innerHTML='🎉 모든 조건 통과! 훌륭합니다.<br>'+r.lines.join('<br>');
+  } else {
+    fb.className='qfeedback ng';
+    fb.innerHTML='조금만 더! 피드백을 보고 고쳐서 다시 제출해보세요.<br>'+r.lines.join('<br>');
+    toast('피드백을 확인하세요 ✍️','info');
+  }
+}
+// 실시간 피드백 — 입력하는 동안 자동 체크
+const sbTimers={};
+['sa1','sa2','sa3'].forEach((id,ix)=>{
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('input',()=>{
+    clearTimeout(sbTimers[id]);
+    sbTimers[id]=setTimeout(()=>{
+      const fb=document.getElementById('sf'+(ix+1));
+      const r=sbEval(id);
+      if(r.v.length<2){ fb.className='qfeedback'; fb.innerHTML=''; return; }
+      fb.className='qfeedback '+(r.pass?'ok':'ng');
+      fb.innerHTML=(r.pass?'🎉 조건 통과! 「제출」 버튼을 눌러 점수를 받으세요.':'✍️ 실시간 체크 중...')+'<br>'+r.lines.join('<br>');
+    },350);
+  });
+});
 function sbans(id,ans){
   document.getElementById(id).value=ans;
   toast('모범 답안을 확인하세요.','info');

@@ -86,7 +86,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 2
   font-family:'Noto Serif JP';}
 .canvas-wrap{position:relative;display:inline-block;}
 canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
-  background:#0a0a1e;touch-action:none;display:block;}
+  background:#2a2560;touch-action:none;display:block;}
 .cbtn-row{display:flex;gap:6px;margin-top:6px;justify-content:center;}
 
 /* 단어카드 */
@@ -699,8 +699,8 @@ function initC(i){
   const c=document.getElementById('c'+i);
   if(!c||ctxMap[i]) return;
   const ctx=c.getContext('2d');
-  ctxMap[i]=ctx; strokeW[i]=5;
-  ctx.strokeStyle='#c084fc'; ctx.lineWidth=5;
+  ctxMap[i]=ctx; strokeW[i]=8;
+  ctx.strokeStyle='#fbbf24'; ctx.lineWidth=8;
   ctx.lineCap='round'; ctx.lineJoin='round';
   drawGrid(i);
   let drawing=false,last=null;
@@ -722,12 +722,12 @@ function drawGrid(i){
   if(!g)return;
   const gc=g.getContext('2d');
   gc.clearRect(0,0,160,160);
-  gc.strokeStyle='rgba(124,111,255,.12)'; gc.lineWidth=1;
+  gc.strokeStyle='rgba(255,255,255,.18)'; gc.lineWidth=1;
   gc.setLineDash([3,3]);
   gc.beginPath();gc.moveTo(80,0);gc.lineTo(80,160);gc.stroke();
   gc.beginPath();gc.moveTo(0,80);gc.lineTo(160,80);gc.stroke();
   gc.setLineDash([]);
-  gc.strokeStyle='rgba(124,111,255,.2)'; gc.lineWidth=1.5;
+  gc.strokeStyle='rgba(255,255,255,.25)'; gc.lineWidth=1.5;
   gc.strokeRect(1,1,158,158);
 }
 function cls(i){
@@ -740,7 +740,7 @@ function guide(i,k){
   const gc=g.getContext('2d');
   drawGrid(i);
   gc.font='110px "Noto Serif JP"';
-  gc.fillStyle='rgba(192,132,252,.13)';
+  gc.fillStyle='rgba(255,255,255,.22)';
   gc.textAlign='center'; gc.textBaseline='middle';
   gc.fillText(k,80,85);
   toast('가이드를 보면서 따라 써보세요!','info');

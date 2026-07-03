@@ -899,4 +899,12 @@ function sbcheck(id,n){
   const pts=n===3?30:20;
   addPt(pts); toast('제출 완료! +'+pts+'pt 🎉','ok');
   fb.className='qfeedback ok';
-  fb.textContent='✅ 제출되었습�
+  fb.textContent='✅ 제출되었습니다! 모범 답안과 비교해보세요.';
+}
+function sbans(id,ans){
+  document.getElementById(id).value=ans;
+  toast('모범 답안을 확인하세요.','info');
+}
+</script>
+</body>
+</html>

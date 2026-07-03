@@ -209,6 +209,21 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
 .r-choice.show-ans{border-color:var(--green);background:rgba(52,211,153,.05);color:var(--green);}
 .r-choice.disabled{pointer-events:none;}
 
+
+/* 독해 해설 */
+.kaisetsu{display:none;margin-top:18px;}
+.kaisetsu.open{display:block;}
+.kaisetsu-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:14px 0 8px;}
+.furigana-text{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px;
+  font-size:15px;font-family:'Noto Sans JP';line-height:2.7;color:var(--text);}
+.furigana-text ruby rt{font-size:9px;color:var(--yellow);font-weight:400;}
+.wordlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.witem{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:9px 12px;
+  font-size:12px;font-family:'Noto Sans JP';}
+.witem .wjp{color:#fff;font-weight:700;}
+.witem .wrd{color:var(--yellow);font-size:10px;margin-left:6px;}
+.witem .wmn{color:var(--muted2);font-size:11px;margin-top:2px;}
+
 /* ── COMMON BUTTONS ── */
 .btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;
   font-size:12px;font-weight:600;transition:all .15s;}
@@ -634,6 +649,27 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         <div class="r-choice" onclick="rchk(this,false)">④ 20代向けの商品をすぐに開発する。</div>
       </div>
     </div>
+    <div style="margin-top:18px;">
+      <button class="btn btn-yellow" onclick="toggleKaisetsu()">📖 후리가나 · 단어 해설 보기</button>
+      <span style="font-size:11px;color:var(--muted);margin-left:10px;">문제를 모두 풀면 자동으로 열립니다</span>
+    </div>
+    <div class="kaisetsu" id="kaisetsu">
+      <div class="kaisetsu-title">본문 후리가나</div>
+      <div class="furigana-text">　<ruby>韓国<rt>かんこく</rt></ruby>コスメの<ruby>販売状況<rt>はんばいじょうきょう</rt></ruby>について、Loftの<ruby>担当者<rt>たんとうしゃ</rt></ruby>に<ruby>確認<rt>かくにん</rt></ruby>したところ、<ruby>新商品<rt>しんしょうひん</rt></ruby>の<ruby>売<rt>う</rt></ruby>れ<ruby>行<rt>ゆ</rt></ruby>きは<ruby>好調<rt>こうちょう</rt></ruby>だとのことでした。<ruby>一方<rt>いっぽう</rt></ruby>、POSデータに<ruby>関<rt>かん</rt></ruby>しては、20<ruby>代<rt>だい</rt></ruby>の<ruby>購入率<rt>こうにゅうりつ</rt></ruby>が<ruby>予想<rt>よそう</rt></ruby>より<ruby>低<rt>ひく</rt></ruby>いという<ruby>課題<rt>かだい</rt></ruby>も<ruby>報告<rt>ほうこく</rt></ruby>されました。そこで、<ruby>来週<rt>らいしゅう</rt></ruby>の<ruby>打<rt>う</rt></ruby>ち<ruby>合<rt>あ</rt></ruby>わせでバイヤーと<ruby>相談<rt>そうだん</rt></ruby>し、SNS<ruby>広告<rt>こうこく</rt></ruby>の<ruby>内容<rt>ないよう</rt></ruby>を<ruby>見直<rt>みなお</rt></ruby>すことにしました。<ruby>詳細<rt>しょうさい</rt></ruby>は、<ruby>報告書<rt>ほうこくしょ</rt></ruby>にまとめて<ruby>全体<rt>ぜんたい</rt></ruby>に<ruby>共有<rt>きょうゆう</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>です。</div>
+      <div class="kaisetsu-title">단어 해설</div>
+      <div class="wordlist">
+        <div class="witem"><span class="wjp">販売状況</span><span class="wrd">はんばいじょうきょう</span><div class="wmn">판매 상황</div></div>
+        <div class="witem"><span class="wjp">売れ行き</span><span class="wrd">うれゆき</span><div class="wmn">팔림새 · 판매 추이</div></div>
+        <div class="witem"><span class="wjp">好調</span><span class="wrd">こうちょう</span><div class="wmn">호조 · 순조로움</div></div>
+        <div class="witem"><span class="wjp">一方</span><span class="wrd">いっぽう</span><div class="wmn">한편 (대비·전환)</div></div>
+        <div class="witem"><span class="wjp">購入率</span><span class="wrd">こうにゅうりつ</span><div class="wmn">구입률</div></div>
+        <div class="witem"><span class="wjp">課題</span><span class="wrd">かだい</span><div class="wmn">과제 · 해결할 문제</div></div>
+        <div class="witem"><span class="wjp">打ち合わせ</span><span class="wrd">うちあわせ</span><div class="wmn">업무 미팅 · 협의</div></div>
+        <div class="witem"><span class="wjp">見直す</span><span class="wrd">みなおす</span><div class="wmn">재검토하다 · 다시 보다</div></div>
+        <div class="witem"><span class="wjp">詳細</span><span class="wrd">しょうさい</span><div class="wmn">상세 · 자세한 내용</div></div>
+        <div class="witem"><span class="wjp">共有する</span><span class="wrd">きょうゆうする</span><div class="wmn">공유하다</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -878,6 +914,8 @@ function ans(...ids){
 }
 
 // ══ 독해 ══
+let rAnswered=0;
+function toggleKaisetsu(){ document.getElementById('kaisetsu').classList.toggle('open'); }
 function rchk(el,correct){
   const group=el.closest('.r-choices');
   group.querySelectorAll('.r-choice').forEach(c=>{c.classList.add('disabled');});
@@ -888,6 +926,11 @@ function rchk(el,correct){
       if(c.getAttribute('onclick').includes('true'))c.classList.add('show-ans');
     });
     toast('틀렸습니다 ❌','ng');
+  }
+  rAnswered++;
+  if(rAnswered===2){
+    document.getElementById('kaisetsu').classList.add('open');
+    setTimeout(()=>toast('📖 해설이 열렸습니다! 후리가나와 단어를 확인하세요.','info'),1400);
   }
 }
 

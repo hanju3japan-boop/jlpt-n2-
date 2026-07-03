@@ -209,6 +209,21 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
 .r-choice.show-ans{border-color:var(--green);background:rgba(52,211,153,.05);color:var(--green);}
 .r-choice.disabled{pointer-events:none;}
 
+
+/* 독해 해설 */
+.kaisetsu{display:none;margin-top:18px;}
+.kaisetsu.open{display:block;}
+.kaisetsu-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:14px 0 8px;}
+.furigana-text{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px;
+  font-size:15px;font-family:'Noto Sans JP';line-height:2.7;color:var(--text);}
+.furigana-text ruby rt{font-size:9px;color:var(--yellow);font-weight:400;}
+.wordlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.witem{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:9px 12px;
+  font-size:12px;font-family:'Noto Sans JP';}
+.witem .wjp{color:#fff;font-weight:700;}
+.witem .wrd{color:var(--yellow);font-size:10px;margin-left:6px;}
+.witem .wmn{color:var(--muted2);font-size:11px;margin-top:2px;}
+
 /* ── COMMON BUTTONS ── */
 .btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;
   font-size:12px;font-weight:600;transition:all .15s;}
@@ -619,6 +634,27 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         <div class="r-choice" onclick="rchk(this,false)">④ 連絡をメールだけに統一する。</div>
       </div>
     </div>
+    <div style="margin-top:18px;">
+      <button class="btn btn-yellow" onclick="toggleKaisetsu()">📖 후리가나 · 단어 해설 보기</button>
+      <span style="font-size:11px;color:var(--muted);margin-left:10px;">문제를 모두 풀면 자동으로 열립니다</span>
+    </div>
+    <div class="kaisetsu" id="kaisetsu">
+      <div class="kaisetsu-title">본문 후리가나</div>
+      <div class="furigana-text">　プロジェクトの<ruby>進行状況<rt>しんこうじょうきょう</rt></ruby>について、<ruby>担当者<rt>たんとうしゃ</rt></ruby>に<ruby>確認<rt>かくにん</rt></ruby>したところ、<ruby>予想以上<rt>よそういじょう</rt></ruby>に<ruby>時間<rt>じかん</rt></ruby>がかかっていることが<ruby>分<rt>わ</rt></ruby>かりました。<ruby>原因<rt>げんいん</rt></ruby>は、<ruby>社内<rt>しゃない</rt></ruby>の<ruby>連絡不足<rt>れんらくぶそく</rt></ruby>と<ruby>情報共有<rt>じょうほうきょうゆう</rt></ruby>の<ruby>遅<rt>おく</rt></ruby>れでした。そこで、<ruby>今後<rt>こんご</rt></ruby>は<ruby>定期的<rt>ていきてき</rt></ruby>にミーティングを<ruby>行<rt>おこな</rt></ruby>い、<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>確実<rt>かくじつ</rt></ruby>に<ruby>伝<rt>つた</rt></ruby>えることにしました。また、<ruby>担当者<rt>たんとうしゃ</rt></ruby>が<ruby>決定事項<rt>けっていじこう</rt></ruby>をチーム<ruby>全体<rt>ぜんたい</rt></ruby>に<ruby>連絡<rt>れんらく</rt></ruby>する<ruby>仕組<rt>しく</rt></ruby>みも<ruby>整<rt>ととの</rt></ruby>えることになりました。</div>
+      <div class="kaisetsu-title">단어 해설</div>
+      <div class="wordlist">
+        <div class="witem"><span class="wjp">進行状況</span><span class="wrd">しんこうじょうきょう</span><div class="wmn">진행 상황</div></div>
+        <div class="witem"><span class="wjp">予想以上</span><span class="wrd">よそういじょう</span><div class="wmn">예상 이상</div></div>
+        <div class="witem"><span class="wjp">原因</span><span class="wrd">げんいん</span><div class="wmn">원인</div></div>
+        <div class="witem"><span class="wjp">連絡不足</span><span class="wrd">れんらくぶそく</span><div class="wmn">연락 부족</div></div>
+        <div class="witem"><span class="wjp">遅れ</span><span class="wrd">おくれ</span><div class="wmn">지연 · 늦어짐</div></div>
+        <div class="witem"><span class="wjp">定期的に</span><span class="wrd">ていきてきに</span><div class="wmn">정기적으로</div></div>
+        <div class="witem"><span class="wjp">確実に</span><span class="wrd">かくじつに</span><div class="wmn">확실하게</div></div>
+        <div class="witem"><span class="wjp">決定事項</span><span class="wrd">けっていじこう</span><div class="wmn">결정 사항</div></div>
+        <div class="witem"><span class="wjp">仕組み</span><span class="wrd">しくみ</span><div class="wmn">구조 · 시스템</div></div>
+        <div class="witem"><span class="wjp">整える</span><span class="wrd">ととのえる</span><div class="wmn">정비하다 · 갖추다</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -863,6 +899,8 @@ function ans(...ids){
 }
 
 // ══ 독해 ══
+let rAnswered=0;
+function toggleKaisetsu(){ document.getElementById('kaisetsu').classList.toggle('open'); }
 function rchk(el,correct){
   const group=el.closest('.r-choices');
   group.querySelectorAll('.r-choice').forEach(c=>{c.classList.add('disabled');});
@@ -873,6 +911,11 @@ function rchk(el,correct){
       if(c.getAttribute('onclick').includes('true'))c.classList.add('show-ans');
     });
     toast('틀렸습니다 ❌','ng');
+  }
+  rAnswered++;
+  if(rAnswered===2){
+    document.getElementById('kaisetsu').classList.add('open');
+    setTimeout(()=>toast('📖 해설이 열렸습니다! 후리가나와 단어를 확인하세요.','info'),1400);
   }
 }
 

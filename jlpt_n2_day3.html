@@ -391,7 +391,7 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         <div class="clabel">報</div>
         <div class="canvas-wrap">
           <canvas id="c0" width="160" height="160"></canvas>
-          <canvas id="g0" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;"></canvas>
+          <canvas id="g0" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
         </div>
         <div class="cbtn-row">
           <button class="btn btn-danger" onclick="cls(0)" style="font-size:11px;padding:5px 10px">지우기</button>
@@ -402,7 +402,7 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         <div class="clabel">告</div>
         <div class="canvas-wrap">
           <canvas id="c1" width="160" height="160"></canvas>
-          <canvas id="g1" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;"></canvas>
+          <canvas id="g1" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
         </div>
         <div class="cbtn-row">
           <button class="btn btn-danger" onclick="cls(1)" style="font-size:11px;padding:5px 10px">지우기</button>
@@ -413,7 +413,7 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         <div class="clabel">相</div>
         <div class="canvas-wrap">
           <canvas id="c2" width="160" height="160"></canvas>
-          <canvas id="g2" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;"></canvas>
+          <canvas id="g2" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
         </div>
         <div class="cbtn-row">
           <button class="btn btn-danger" onclick="cls(2)" style="font-size:11px;padding:5px 10px">지우기</button>
@@ -424,7 +424,7 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         <div class="clabel">談</div>
         <div class="canvas-wrap">
           <canvas id="c3" width="160" height="160"></canvas>
-          <canvas id="g3" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;"></canvas>
+          <canvas id="g3" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
         </div>
         <div class="cbtn-row">
           <button class="btn btn-danger" onclick="cls(3)" style="font-size:11px;padding:5px 10px">지우기</button>
@@ -899,12 +899,4 @@ function sbcheck(id,n){
   const pts=n===3?30:20;
   addPt(pts); toast('제출 완료! +'+pts+'pt 🎉','ok');
   fb.className='qfeedback ok';
-  fb.textContent='✅ 제출되었습니다! 모범 답안과 비교해보세요.';
-}
-function sbans(id,ans){
-  document.getElementById(id).value=ans;
-  toast('모범 답안을 확인하세요.','info');
-}
-</script>
-</body>
-</html>
+  fb.textContent='✅ 제출되었습�

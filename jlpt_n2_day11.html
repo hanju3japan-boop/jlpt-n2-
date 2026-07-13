@@ -267,6 +267,13 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
   nav{padding:10px 14px;}
   .nav-theme{display:none;}
 }
+
+/* 한자 스토리 애니메이션 */
+.kanim{margin-top:12px;}
+.kanim-stage{position:relative;height:110px;border-radius:10px;background:rgba(255,255,255,.05);overflow:hidden;}
+.kanim-part{position:absolute;font-size:38px;font-family:'Noto Serif JP',serif;opacity:0;transition:all .8s ease;line-height:1;font-weight:700;}
+.kanim-res{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:56px;font-family:'Noto Serif JP',serif;opacity:0;transition:opacity .9s ease;line-height:1;font-weight:700;}
+.kanim-cap{font-size:12px;color:var(--muted);min-height:32px;margin-top:8px;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -314,6 +321,11 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
           <div class="kword">市販<span>しはん</span></div>
           <div class="kword">販売員<span>はんばいいん</span></div>
         </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst0"><span class="kanim-part" style="color:#fbbf24;left:8%;top:32px">貝</span><span class="kanim-part" style="color:#f87171;left:78%;top:32px">反</span><div class="kanim-res">販</div></div>
+          <div class="kanim-cap" id="kcap0"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(0)">▶ 스토리 애니메이션</button></div>
+        </div>
         <div class="kex">
           <div class="jp">新作リップはLoftの全店で<span class="hl">販売</span>を開始しました</div>
           <div class="ko">신작 립은 로프트 전 매장에서 판매를 개시했습니다</div>
@@ -337,6 +349,11 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
           <div class="kword">顧客<span>こきゃく</span></div>
           <div class="kword">客層<span>きゃくそう</span></div>
           <div class="kword">来客<span>らいきゃく</span></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst1"><span class="kanim-part" style="color:#60a5fa;left:43%;top:-48px">宀</span><span class="kanim-part" style="color:#f87171;left:43%;top:120px">各</span><div class="kanim-res">客</div></div>
+          <div class="kanim-cap" id="kcap1"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(1)">▶ 스토리 애니메이션</button></div>
         </div>
         <div class="kex">
           <div class="jp">この売り場の<span class="hl">客層</span>は20代の女性が中心です</div>
@@ -362,6 +379,11 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
           <div class="kword">直接<span>ちょくせつ</span></div>
           <div class="kword">接続<span>せつぞく</span></div>
         </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst2"><span class="kanim-part" style="color:#60a5fa;left:6%;top:32px">扌</span><span class="kanim-part" style="color:#f472b6;left:78%;top:32px">妾</span><div class="kanim-res">接</div></div>
+          <div class="kanim-cap" id="kcap2"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(2)">▶ 스토리 애니메이션</button></div>
+        </div>
         <div class="kex">
           <div class="jp">丁寧な<span class="hl">接客</span>がリピーターを増やします</div>
           <div class="ko">정중한 접객이 단골을 늘립니다</div>
@@ -385,6 +407,11 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
           <div class="kword">納得<span>なっとく</span></div>
           <div class="kword">説得<span>せっとく</span></div>
           <div class="kword">得る<span>える</span></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst3"><span class="kanim-part" style="color:#60a5fa;left:4%;top:30px">彳</span><span class="kanim-part" style="color:#fbbf24;left:45%;top:-48px">旦</span><span class="kanim-part" style="color:#34d399;left:86%;top:72px">寸</span><div class="kanim-res">得</div></div>
+          <div class="kanim-cap" id="kcap3"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(3)">▶ 스토리 애니메이션</button></div>
         </div>
         <div class="kex">
           <div class="jp">セット購入なら20%オフでお<span class="hl">得</span>です</div>
@@ -998,6 +1025,41 @@ const sbTimers={};
 function sbans(id,ans){
   document.getElementById(id).value=ans;
   toast('모범 답안을 확인하세요.','info');
+}
+
+// ══ 한자 스토리 애니메이션 ══
+const KANIM=[
+  {parts:[['8%',32,'25%',32],['78%',32,'56%',32]],
+   caps:['① 貝(조개)는 옛날의 돈!','② 反 = 반대쪽으로 넘기다','③ 돈을 받고 물건이 반대로 오간다…','완성! 販 = 돈(貝)+반대(反) → 판매!']},
+  {parts:[['43%',-48,'43%',6],['43%',120,'43%',52]],
+   caps:['① 宀 = 지붕·집','② 各 = 각자 찾아오는 사람','③ 지붕 아래로 들어온다…','완성! 客 = 집(宀)에 온 사람(各) → 손님!']},
+  {parts:[['6%',32,'25%',32],['78%',32,'55%',32]],
+   caps:['① 扌 = 내미는 손','② 妾 = 서 있는(立) 여성(女) 손님','③ 손을 내밀어 맞이한다…','완성! 接 = 손(扌)+손님(妾) → 접하다·접객!']},
+  {parts:[['4%',30,'18%',30],['45%',-48,'43%',10],['86%',72,'60%',48]],
+   caps:['① 彳 = 길을 걷는다','② 旦(원래는 貝) = 길에 떨어진 돈','③ 寸 = 줍는 손','④ 길에서 돈을 손에 넣는다…','완성! 得 = 얻다·이득 → お買い得!']}
+];
+const kanimT={};
+function playKanim(i){
+  const cfg=KANIM[i];
+  const stage=document.getElementById('kst'+i), cap=document.getElementById('kcap'+i);
+  (kanimT[i]||[]).forEach(clearTimeout); const tm=kanimT[i]=[];
+  const parts=stage.querySelectorAll('.kanim-part'), res=stage.querySelector('.kanim-res');
+  parts.forEach((p,j)=>{const c=cfg.parts[j];p.style.transition='none';p.style.opacity=0;p.style.left=c[0];p.style.top=c[1]+'px';});
+  res.style.opacity=0; cap.textContent='';
+  void stage.offsetWidth;
+  let t=250;
+  parts.forEach((p,j)=>{
+    tm.push(setTimeout(()=>{p.style.transition='all .8s ease';p.style.opacity=1;cap.textContent=cfg.caps[j];},t));
+    t+=1300;
+  });
+  tm.push(setTimeout(()=>{
+    parts.forEach((p,j)=>{const c=cfg.parts[j];p.style.left=c[2];p.style.top=c[3]+'px';});
+    cap.textContent=cfg.caps[parts.length];
+  },t)); t+=1300;
+  tm.push(setTimeout(()=>{
+    parts.forEach(p=>p.style.opacity=0); res.style.opacity=1;
+    cap.textContent=cfg.caps[parts.length+1];
+  },t));
 }
 </script>
 </body>

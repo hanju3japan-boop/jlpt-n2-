@@ -274,6 +274,16 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
 .kanim-part{position:absolute;font-size:38px;font-family:'Noto Serif JP',serif;opacity:0;transition:all .8s ease;line-height:1;font-weight:700;}
 .kanim-res{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:56px;font-family:'Noto Serif JP',serif;opacity:0;transition:opacity .9s ease;line-height:1;font-weight:700;}
 .kanim-cap{font-size:12px;color:var(--muted);min-height:32px;margin-top:8px;line-height:1.5;}
+
+/* 연출 강화 + 조립 게임 */
+@keyframes kshk{0%,100%{transform:translate(0)}25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-2px,-1px)}}
+.kg-target{text-align:center;font-size:13px;color:var(--muted);margin:10px 0 4px;}
+.kg-char{position:relative;text-align:center;font-size:60px;font-family:'Noto Serif JP',serif;min-height:74px;line-height:74px;font-weight:700;}
+.kg-pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;}
+.kg-piece{font-size:24px;font-family:'Noto Serif JP',serif;padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:10px;cursor:pointer;background:rgba(255,255,255,.05);transition:transform .15s,border-color .15s,color .15s;user-select:none;}
+.kg-piece.sel{border-color:#fbbf24;color:#fbbf24;transform:translateY(-3px);}
+.kg-piece.used{opacity:.22;pointer-events:none;}
+.kg-fb{text-align:center;font-size:12px;color:var(--muted);min-height:18px;margin-top:8px;}
 </style>
 </head>
 <body>
@@ -470,6 +480,15 @@ canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- 부수 조립 미니게임 -->
+  <div class="write-section" style="margin-top:18px;position:relative;">
+    <div class="write-header">🧩 부수 조립 챌린지 — 조각을 눌러 한자를 완성하세요 (한 자당 +10pt)</div>
+    <div class="kg-target" id="kgT"></div>
+    <div class="kg-char" id="kgC">？</div>
+    <div class="kg-pool" id="kgP"></div>
+    <div class="kg-fb" id="kgF"></div>
   </div>
 
   <!-- 핵심 단어 플립 카드 -->
@@ -1027,40 +1046,135 @@ function sbans(id,ans){
   toast('모범 답안을 확인하세요.','info');
 }
 
-// ══ 한자 스토리 애니메이션 ══
+// ══ 한자 스토리 애니메이션 (연출 강화판) ══
 const KANIM=[
-  {parts:[['8%',32,'25%',32],['78%',32,'56%',32]],
-   caps:['① 貝(조개)는 옛날의 돈!','② 反 = 반대쪽으로 넘기다','③ 돈을 받고 물건이 반대로 오간다…','완성! 販 = 돈(貝)+반대(反) → 판매!']},
+  {parts:[['-15%',32,'25%',32],['108%',32,'56%',32]],
+   props:[{ch:'💰',f:[14,45],t:[74,45],spin:1},{ch:'📦',f:[76,45],t:[16,45],spin:1}],
+   caps:['① 貝(조개)가 쿵! 조개는 옛날의 돈','② 反 = 반대쪽으로 넘겨줄 상대','③ 돈은 이쪽으로, 상품은 저쪽으로!','완성! 販 = 돈(貝)+반대(反) → 판매!']},
   {parts:[['43%',-48,'43%',6],['43%',120,'43%',52]],
-   caps:['① 宀 = 지붕·집','② 各 = 각자 찾아오는 사람','③ 지붕 아래로 들어온다…','완성! 客 = 집(宀)에 온 사람(各) → 손님!']},
-  {parts:[['6%',32,'25%',32],['78%',32,'55%',32]],
-   caps:['① 扌 = 내미는 손','② 妾 = 서 있는(立) 여성(女) 손님','③ 손을 내밀어 맞이한다…','완성! 接 = 손(扌)+손님(妾) → 접하다·접객!']},
-  {parts:[['4%',30,'18%',30],['45%',-48,'43%',10],['86%',72,'60%',48]],
-   caps:['① 彳 = 길을 걷는다','② 旦(원래는 貝) = 길에 떨어진 돈','③ 寸 = 줍는 손','④ 길에서 돈을 손에 넣는다…','완성! 得 = 얻다·이득 → お買い得!']}
+   props:[{ch:'🚶',f:[92,55],t:[47,55]}],
+   caps:['① 宀 = 지붕·집','② 各 = 각자 찾아오는 사람','③ 지붕 아래로 손님이 들어온다!','완성! 客 = 집(宀)에 온 사람(各) → 손님!']},
+  {parts:[['-15%',32,'25%',32],['108%',32,'55%',32]],
+   props:[{ch:'🤝',f:[44,45],t:[44,45]}],
+   caps:['① 扌 = 내미는 손','② 妾 = 서 있는(立) 여성(女) 손님','③ 손을 내밀어 맞이한다!','완성! 接 = 손(扌)+손님(妾) → 접하다·접객!']},
+  {parts:[['-15%',30,'18%',30],['43%',-48,'43%',10],['108%',48,'60%',48]],
+   props:[{ch:'💰',f:[45,15],t:[62,55]}],
+   caps:['① 彳 = 길을 걷는다','② 旦(원래는 貝) = 길에 떨어진 돈','③ 寸 = 줍는 손','④ 길에서 돈을 손에 넣는다!','완성! 得 = 얻다·이득 → お買い得!']}
 ];
 const kanimT={};
+function ktype(el,txt){
+  clearInterval(el._iv); let i=0; el.textContent='';
+  el._iv=setInterval(()=>{el.textContent=txt.slice(0,++i);if(i>=txt.length)clearInterval(el._iv);},26);
+}
+function kfly(stage,cfg){
+  const el=document.createElement('div');
+  el.textContent=cfg.ch; el.className='kanim-fx';
+  el.style.cssText='position:absolute;font-size:26px;line-height:1;pointer-events:none;z-index:3;';
+  stage.appendChild(el);
+  const W=stage.offsetWidth,H=stage.offsetHeight;
+  const fx=cfg.f[0]/100*W, fy=cfg.f[1]/100*H, tx=cfg.t[0]/100*W, ty=cfg.t[1]/100*H;
+  const t0=performance.now(), dur=cfg.dur||950;
+  function step(t){
+    const p=Math.min((t-t0)/dur,1);
+    el.style.left=(fx+(tx-fx)*p)+'px';
+    el.style.top=(fy+(ty-fy)*p-30*Math.sin(Math.PI*p))+'px';
+    if(cfg.spin) el.style.transform='rotate('+(p*360)+'deg)';
+    if(p<1)requestAnimationFrame(step); else setTimeout(()=>el.remove(),300);
+  }
+  requestAnimationFrame(step);
+}
+function kburst(host){
+  const c=document.createElement('canvas');
+  c.width=host.offsetWidth||300; c.height=host.offsetHeight||110;
+  c.className='kanim-fx';
+  c.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;';
+  host.appendChild(c);
+  const x=c.getContext('2d');
+  const cols=['#fbbf24','#f87171','#34d399','#60a5fa','#f472b6'];
+  const P=Array.from({length:50},()=>({x:c.width/2,y:c.height/2,vx:(Math.random()-.5)*6,vy:-Math.random()*4.5-1.5,s:3+Math.random()*4,r:Math.random()*6,cl:cols[Math.floor(Math.random()*5)]}));
+  const t0=performance.now();
+  function f(t){
+    x.clearRect(0,0,c.width,c.height);
+    P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.cl;x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.restore();});
+    if((t-t0)<1500)requestAnimationFrame(f); else c.remove();
+  }
+  requestAnimationFrame(f);
+}
 function playKanim(i){
   const cfg=KANIM[i];
   const stage=document.getElementById('kst'+i), cap=document.getElementById('kcap'+i);
   (kanimT[i]||[]).forEach(clearTimeout); const tm=kanimT[i]=[];
+  clearInterval(cap._iv);
+  stage.querySelectorAll('.kanim-fx').forEach(e=>e.remove());
   const parts=stage.querySelectorAll('.kanim-part'), res=stage.querySelector('.kanim-res');
   parts.forEach((p,j)=>{const c=cfg.parts[j];p.style.transition='none';p.style.opacity=0;p.style.left=c[0];p.style.top=c[1]+'px';});
-  res.style.opacity=0; cap.textContent='';
+  res.style.opacity=0; res.style.transition='none'; res.style.transform='scale(2.4)';
+  cap.textContent='';
   void stage.offsetWidth;
   let t=250;
   parts.forEach((p,j)=>{
-    tm.push(setTimeout(()=>{p.style.transition='all .8s ease';p.style.opacity=1;cap.textContent=cfg.caps[j];},t));
-    t+=1300;
+    tm.push(setTimeout(()=>{
+      const c=cfg.parts[j];
+      p.style.transition='all .55s cubic-bezier(.34,1.56,.64,1)';
+      p.style.opacity=1; p.style.left=c[2]; p.style.top=c[3]+'px';
+      ktype(cap,cfg.caps[j]);
+    },t));
+    t+=1350;
   });
   tm.push(setTimeout(()=>{
-    parts.forEach((p,j)=>{const c=cfg.parts[j];p.style.left=c[2];p.style.top=c[3]+'px';});
-    cap.textContent=cfg.caps[parts.length];
-  },t)); t+=1300;
+    (cfg.props||[]).forEach(pr=>kfly(stage,pr));
+    ktype(cap,cfg.caps[parts.length]);
+  },t)); t+=1450;
   tm.push(setTimeout(()=>{
-    parts.forEach(p=>p.style.opacity=0); res.style.opacity=1;
-    cap.textContent=cfg.caps[parts.length+1];
+    parts.forEach(p=>p.style.opacity=0);
+    res.style.transition='all .35s ease-out'; res.style.opacity=1; res.style.transform='scale(1)';
+    stage.style.animation='none'; void stage.offsetWidth; stage.style.animation='kshk .3s ease';
+    kburst(stage);
+    ktype(cap,cfg.caps[parts.length+1]);
   },t));
 }
+
+// ══ 부수 조립 미니게임 ══
+const KG=[
+  {res:'販',need:['貝','反'],label:'Q1. 「판매」 — 돈(?)을 받고 반대(?)로 넘긴다'},
+  {res:'客',need:['宀','各'],label:'Q2. 「손님」 — 지붕(?) 아래로 각자(?) 찾아온다'},
+  {res:'接',need:['扌','妾'],label:'Q3. 「접객」 — 손(?)으로 손님(?)을 맞이한다'},
+  {res:'得',need:['彳','旦','寸'],label:'Q4. 「이득」 — 길(?)에서 돈(?)을 손(?)에 넣는다'}
+];
+let kgR=0, kgSel=[];
+function kgShow(){
+  const T=document.getElementById('kgT'),C=document.getElementById('kgC'),Fb=document.getElementById('kgF');
+  if(kgR>=KG.length){T.textContent='';C.textContent='🏆';Fb.textContent='4자 모두 조립 완료! 대단합니다 (+40pt)';return;}
+  T.textContent=KG[kgR].label+'　('+(kgR+1)+'/4 · 조각 '+KG[kgR].need.length+'개)';
+  C.textContent='？'; C.style.color=''; Fb.textContent='애니메이션에서 본 스토리를 떠올려 보세요'; kgSel=[];
+}
+function kgPick(el){
+  if(kgR>=KG.length) return;
+  const ch=el.textContent;
+  if(el.classList.contains('sel')){el.classList.remove('sel');kgSel=kgSel.filter(c=>c!==ch);return;}
+  el.classList.add('sel'); kgSel.push(ch);
+  const need=KG[kgR].need;
+  if(kgSel.length<need.length) return;
+  const ok=need.every(c=>kgSel.includes(c));
+  const C=document.getElementById('kgC'), P=document.getElementById('kgP');
+  if(ok){
+    document.querySelectorAll('.kg-piece.sel').forEach(e=>{e.classList.remove('sel');e.classList.add('used');});
+    C.textContent=KG[kgR].res; C.style.color='#fbbf24';
+    C.style.animation='none'; void C.offsetWidth; C.style.animation='kshk .3s ease';
+    kburst(C); addPt(10); toast('조립 성공! +10pt 🎉','ok');
+    kgR++; setTimeout(kgShow,1500);
+  } else {
+    P.style.animation='none'; void P.offsetWidth; P.style.animation='kshk .3s ease';
+    toast('그 조합이 아니에요 — 다시!','ng');
+    setTimeout(()=>{document.querySelectorAll('.kg-piece.sel').forEach(e=>e.classList.remove('sel'));kgSel=[];},450);
+  }
+}
+(function kgInit(){
+  const P=document.getElementById('kgP'); if(!P) return;
+  const pool=['貝','反','宀','各','扌','妾','彳','旦','寸'].sort(()=>Math.random()-.5);
+  P.innerHTML=pool.map(ch=>'<span class="kg-piece" onclick="kgPick(this)">'+ch+'</span>').join('');
+  kgShow();
+})();
 </script>
 </body>
 </html>

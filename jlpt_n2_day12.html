@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLPT N2 — Day 12 | 広告・宣伝</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:#1b1b36; --s1:#26264c; --s2:#30305e; --s3:#3a3a70;
+  --border:#44447c; --border2:#545494;
+  --acc:#7c6fff; --acc2:#c084fc; --acc3:#38bdf8;
+  --green:#34d399; --red:#f87171; --yellow:#fbbf24; --orange:#fb923c;
+  --text:#f2f0fa; --muted:#a0a0cc; --muted2:#b8b8e0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans JP',sans-serif;min-height:100vh;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;
+  border-bottom:1px solid var(--border);position:sticky;top:0;
+  background:rgba(27,27,54,0.95);backdrop-filter:blur(16px);z-index:200;}
+.nav-left{display:flex;align-items:center;gap:16px;}
+.nav-logo{font-family:'Noto Serif JP';font-size:17px;color:#fff;letter-spacing:.06em;}
+.nav-logo span{color:var(--acc);}
+.nav-day{background:var(--acc);color:#fff;font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:20px;letter-spacing:.08em;}
+.nav-theme{font-size:12px;color:var(--muted2);}
+.nav-tabs{display:flex;gap:3px;}
+.tab-btn{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  background:transparent;color:var(--muted);transition:all .2s;}
+.tab-btn.active{background:var(--s2);color:#fff;}
+.tab-btn:hover:not(.active){color:var(--text);}
+.nav-score{display:flex;align-items:center;gap:8px;background:var(--s1);
+  border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;border:1px solid var(--border);}
+.score-num{color:var(--yellow);font-size:16px;font-weight:700;}
+
+/* SECTIONS */
+.section{display:none;padding:28px 20px;max-width:980px;margin:0 auto;}
+.section.active{display:block;}
+
+/* SECTION HEADER */
+.sec-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:6px;}
+.sec-h2{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.sec-sub{font-size:13px;color:var(--muted);}
+
+/* ══ LEARN ══ */
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0;}
+@media(max-width:700px){.learn-grid{grid-template-columns:1fr;}}
+
+/* 한자 카드 */
+.kcard{background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  transition:border-color .2s;}
+.kcard:hover{border-color:var(--acc);}
+.kcard-top{display:flex;align-items:stretch;background:var(--s2);border-bottom:1px solid var(--border);}
+.kbig{font-family:'Noto Serif JP';font-size:72px;color:#fff;
+  padding:16px 20px;text-shadow:0 0 40px rgba(124,111,255,.3);
+  border-right:1px solid var(--border);min-width:110px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.kmeta{padding:14px 16px;flex:1;}
+.kreading{display:inline-block;background:var(--acc);color:#fff;
+  padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  margin-bottom:6px;letter-spacing:.06em;}
+.kmeaning{font-size:14px;font-weight:700;color:#fff;margin-bottom:5px;}
+.kstory{font-size:11px;color:#d8d5f0;line-height:1.7;
+  border-left:2px solid var(--acc);padding-left:8px;}
+.kbody{padding:12px 16px;}
+.kwords{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.kword{background:var(--s3);border:1px solid var(--border2);border-radius:6px;
+  padding:4px 10px;font-size:11px;font-family:'Noto Sans JP';color:var(--text);}
+.kword span{color:var(--muted2);font-size:10px;margin-left:4px;}
+.kex{background:rgba(0,0,0,.18);border-radius:8px;padding:8px 12px;}
+.kex .jp{font-size:12px;color:#eceafd;margin-bottom:2px;font-family:'Noto Sans JP';}
+.kex .hl{color:var(--acc2);font-weight:700;}
+.kex .ko{font-size:10px;color:var(--muted);}
+
+/* 쓰기 캔버스 */
+.write-section{background:var(--s1);border:1px solid var(--border);border-radius:16px;
+  padding:20px;margin:20px 0;}
+.write-header{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;}
+.canvas-row{display:flex;flex-wrap:wrap;gap:16px;}
+.citem{text-align:center;}
+.clabel{font-size:12px;font-weight:700;color:var(--acc2);margin-bottom:6px;
+  font-family:'Noto Serif JP';}
+.canvas-wrap{position:relative;display:inline-block;}
+canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
+  background:#2a2560;touch-action:none;display:block;}
+.cbtn-row{display:flex;gap:6px;margin-top:6px;justify-content:center;}
+
+/* 단어카드 */
+.vocab-section{margin:20px 0;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px;}
+.vcard{background:var(--s1);border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;cursor:pointer;transition:all .2s;user-select:none;}
+.vcard:hover{border-color:var(--acc);transform:translateY(-2px);}
+.vcard .vjp{font-size:16px;font-family:'Noto Sans JP';color:#fff;margin-bottom:3px;}
+.vcard .vread{font-size:11px;color:var(--acc);margin-bottom:2px;}
+.vcard .vko{font-size:11px;color:var(--muted);display:none;}
+.vcard.flipped .vko{display:block;}
+.vcard.flipped .vjp{color:var(--acc2);}
+
+/* 문법 */
+.grammar-panel{background:var(--s1);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;margin:20px 0;}
+.grammar-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;
+  background:var(--s2);border-bottom:1px solid var(--border);}
+.gpat{font-family:'Noto Serif JP';font-size:18px;color:var(--acc2);font-weight:700;}
+.gmean{font-size:12px;color:var(--muted);margin-left:auto;}
+.grammar-body{padding:18px;}
+.gexplain{font-size:13px;color:#d8d5f0;line-height:1.8;margin-bottom:12px;}
+.gex{padding:8px 0;border-bottom:1px solid rgba(84,84,148,.4);}
+.gex:last-child{border:none;}
+.gex .jp{font-size:13px;color:#eceafd;font-family:'Noto Sans JP';margin-bottom:2px;}
+.gex .hl{color:var(--acc2);font-weight:700;}
+.gex .ko{font-size:10px;color:var(--muted);}
+
+/* 약점 코너 */
+.weak-section{margin:20px 0;}
+.weak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:12px;}
+.wcard{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.wcard-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.wcard-main{font-family:'Noto Serif JP';font-size:16px;color:var(--acc2);margin-bottom:4px;}
+.wcard-sub{font-size:12px;color:var(--muted2);margin-bottom:8px;}
+.wex{font-size:11px;color:#d8d5f0;font-family:'Noto Sans JP';line-height:1.7;margin-bottom:2px;}
+.wex span{color:var(--acc2);}
+.wko{font-size:10px;color:var(--muted);}
+
+/* ══ QUIZ ══ */
+.quiz-wrap{max-width:640px;margin:0 auto;}
+.qprog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:24px;}
+.qprog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:2px;transition:width .4s;}
+.qcard{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:18px;}
+.qtype{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+.qmain{font-family:'Noto Serif JP';font-size:40px;color:#fff;text-align:center;margin-bottom:6px;}
+.qsub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.8;}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.choice{padding:13px 16px;background:var(--s2);border:1px solid var(--border);
+  border-radius:10px;cursor:pointer;font-size:13px;color:var(--text);
+  transition:all .15s;text-align:center;font-family:'Noto Sans JP';}
+.choice:hover{border-color:var(--acc);color:#fff;background:rgba(124,111,255,.1);}
+.choice.correct{border-color:var(--green);background:rgba(52,211,153,.1);color:var(--green);}
+.choice.wrong{border-color:var(--red);background:rgba(248,113,113,.1);color:var(--red);}
+.choice.show-ans{border-color:var(--green);background:rgba(52,211,153,.06);color:var(--green);}
+.choice.disabled{pointer-events:none;}
+.qinput{width:100%;padding:13px 16px;background:var(--s2);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:16px;font-family:'Noto Sans JP';
+  outline:none;transition:border-color .2s;text-align:center;}
+.qinput:focus{border-color:var(--acc);}
+.qinput.correct{border-color:var(--green);background:rgba(52,211,153,.08);}
+.qinput.wrong{border-color:var(--red);background:rgba(248,113,113,.08);}
+.qfeedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12px;display:none;}
+.qfeedback.ok{background:rgba(52,211,153,.1);color:var(--green);display:block;}
+.qfeedback.ng{background:rgba(248,113,113,.1);color:var(--red);display:block;}
+.qactions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
+
+/* 작문 문제 */
+.sakubun-q{background:var(--s2);border-radius:10px;padding:14px 16px;
+  font-size:13px;color:var(--text);line-height:1.9;margin-bottom:10px;font-family:'Noto Sans JP';}
+.sakubun-input{width:100%;min-height:80px;padding:12px 14px;
+  background:rgba(0,0,0,.18);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:13px;font-family:'Noto Sans JP';
+  outline:none;resize:vertical;line-height:1.8;}
+.sakubun-input:focus{border-color:var(--acc);}
+.sakubun-hint{font-size:11px;color:var(--muted);margin-top:6px;}
+
+/* 결과 */
+.result-wrap{text-align:center;padding:50px 20px;}
+.res-emoji{font-size:60px;margin-bottom:16px;}
+.res-score{font-size:52px;font-weight:700;color:var(--yellow);}
+.res-msg{font-size:14px;color:var(--muted);margin:8px 0 28px;}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:360px;margin:0 auto 28px;}
+.ritem{background:var(--s1);border-radius:10px;padding:14px;}
+.rnum{font-size:24px;font-weight:700;}
+.rlbl{font-size:11px;color:var(--muted);}
+
+/* ══ GRAMMAR DRILL ══ */
+.drill-wrap{max-width:700px;margin:0 auto;}
+.drill-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;
+  padding:22px;margin-bottom:16px;}
+.drill-type{font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:10px;}
+.drill-q{font-size:14px;font-family:'Noto Sans JP';line-height:2.2;color:var(--text);
+  background:var(--s2);border-radius:10px;padding:14px 16px;margin-bottom:8px;}
+.blank{display:inline-block;min-width:90px;padding:4px 10px;
+  background:rgba(0,0,0,.18);border:1px dashed var(--border);border-radius:6px;
+  color:var(--acc2);font-family:'Noto Sans JP';font-size:14px;
+  outline:none;transition:all .2s;vertical-align:middle;text-align:center;}
+.blank:focus{border-color:var(--acc);border-style:solid;}
+.blank.ok{border-color:var(--green);border-style:solid;color:var(--green);background:rgba(52,211,153,.06);}
+.blank.ng{border-color:var(--red);border-style:solid;color:var(--red);background:rgba(248,113,113,.06);}
+.drill-ko{font-size:11px;color:var(--muted);margin-top:4px;}
+.drill-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+
+/* 독해 */
+.reading-text{background:var(--s2);border-radius:12px;padding:18px;
+  font-size:14px;font-family:'Noto Sans JP';line-height:2;color:var(--text);margin-bottom:16px;}
+.reading-q{margin-bottom:14px;}
+.reading-qtext{font-size:13px;color:#eceafd;font-family:'Noto Sans JP';
+  margin-bottom:8px;line-height:1.8;}
+.r-choices{display:flex;flex-direction:column;gap:6px;}
+.r-choice{padding:10px 14px;background:var(--s2);border:1px solid var(--border);
+  border-radius:8px;cursor:pointer;font-size:12px;font-family:'Noto Sans JP';
+  color:var(--text);transition:all .15s;}
+.r-choice:hover{border-color:var(--acc);}
+.r-choice.correct{border-color:var(--green);background:rgba(52,211,153,.08);color:var(--green);}
+.r-choice.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);}
+.r-choice.show-ans{border-color:var(--green);background:rgba(52,211,153,.05);color:var(--green);}
+.r-choice.disabled{pointer-events:none;}
+
+
+/* 독해 해설 */
+.kaisetsu{display:none;margin-top:18px;}
+.kaisetsu.open{display:block;}
+.kaisetsu-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:14px 0 8px;}
+.furigana-text{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px;
+  font-size:15px;font-family:'Noto Sans JP';line-height:2.7;color:var(--text);}
+.furigana-text ruby rt{font-size:9px;color:var(--yellow);font-weight:400;}
+.wordlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.witem{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:9px 12px;
+  font-size:12px;font-family:'Noto Sans JP';}
+.witem .wjp{color:#fff;font-weight:700;}
+.witem .wrd{color:var(--yellow);font-size:10px;margin-left:6px;}
+.witem .wmn{color:var(--muted2);font-size:11px;margin-top:2px;}
+
+/* ── COMMON BUTTONS ── */
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;
+  font-size:12px;font-weight:600;transition:all .15s;}
+.btn-ghost{background:var(--s2);color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--acc);color:var(--acc);}
+.btn-acc{background:var(--acc);color:#fff;}
+.btn-acc:hover{background:#6a5eee;}
+.btn-danger{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.3);}
+.btn-danger:hover{background:rgba(248,113,113,.2);}
+.btn-yellow{background:rgba(251,191,36,.12);color:var(--yellow);border:1px solid rgba(251,191,36,.3);}
+.btn-yellow:hover{background:rgba(251,191,36,.2);}
+
+/* 미션 배너 */
+.mission-banner{background:linear-gradient(135deg,rgba(124,111,255,.15),rgba(192,132,252,.1));
+  border:1px solid rgba(124,111,255,.3);border-radius:14px;padding:18px 22px;
+  display:flex;align-items:flex-start;gap:14px;margin-top:28px;}
+.mission-icon{font-size:28px;flex-shrink:0;}
+.mission-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:4px;}
+.mission-text{font-size:13px;color:var(--text);line-height:1.7;}
+
+/* 토스트 */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--s2);border:1px solid var(--border);
+  padding:10px 22px;border-radius:30px;font-size:13px;font-weight:500;
+  transition:transform .3s;z-index:9999;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--green);color:var(--green);}
+.toast.ng{border-color:var(--red);color:var(--red);}
+.toast.info{border-color:var(--acc);color:var(--acc);}
+
+/* 섹션 구분 라벨 */
+.slabel{font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:8px;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
+
+@media(max-width:600px){
+  .qmain{font-size:28px;}
+  .choices{grid-template-columns:1fr;}
+  .kbig{font-size:52px;min-width:80px;}
+  nav{padding:10px 14px;}
+  .nav-theme{display:none;}
+}
+
+/* 한자 스토리 애니메이션 */
+.kanim{margin-top:12px;}
+.kanim-stage{position:relative;height:110px;border-radius:10px;background:rgba(255,255,255,.05);overflow:hidden;}
+.kanim-part{position:absolute;font-size:38px;font-family:'Noto Serif JP',serif;opacity:0;transition:all .8s ease;line-height:1;font-weight:700;}
+.kanim-res{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:56px;font-family:'Noto Serif JP',serif;opacity:0;transition:opacity .9s ease;line-height:1;font-weight:700;}
+.kanim-cap{font-size:12px;color:var(--muted);min-height:32px;margin-top:8px;line-height:1.5;}
+
+/* 연출 강화 + 조립 게임 */
+@keyframes kshk{0%,100%{transform:translate(0)}25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-2px,-1px)}}
+.kg-target{text-align:center;font-size:13px;color:var(--muted);margin:10px 0 4px;}
+.kg-char{position:relative;text-align:center;font-size:60px;font-family:'Noto Serif JP',serif;min-height:74px;line-height:74px;font-weight:700;}
+.kg-pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;}
+.kg-piece{font-size:24px;font-family:'Noto Serif JP',serif;padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:10px;cursor:pointer;background:rgba(255,255,255,.05);transition:transform .15s,border-color .15s,color .15s;user-select:none;}
+.kg-piece.sel{border-color:#fbbf24;color:#fbbf24;transform:translateY(-3px);}
+.kg-piece.used{opacity:.22;pointer-events:none;}
+.kg-fb{text-align:center;font-size:12px;color:var(--muted);min-height:18px;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">N2<span>·</span></div>
+    <div class="nav-day">DAY 12</div>
+    <div class="nav-theme">今日のテーマ：広告・宣伝</div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="show('learn')">📖 학습</button>
+    <button class="tab-btn" onclick="show('quiz')">✏️ 퀴즈</button>
+    <button class="tab-btn" onclick="show('grammar')">📐 문법</button>
+    <button class="tab-btn" onclick="show('reading')">📄 독해</button>
+    <button class="tab-btn" onclick="show('sakubun')">📝 작문</button>
+  </div>
+  <div class="nav-score">🏆 <span class="score-num" id="sc">0</span>pt</div>
+</nav>
+
+<!-- ══════════ SECTION: 학습 ══════════ -->
+<div class="section active" id="sec-learn">
+  <div class="sec-eyebrow">JLPT N2 · DAY 12</div>
+  <div class="sec-h2">広告・宣伝 — 오늘의 학습</div>
+  <div class="sec-sub">한자 4자 · 핵심 단어 · 문법 · 약점 코너</div>
+
+  <div class="slabel">오늘의 한자 4자</div>
+  <div class="learn-grid">
+
+    <!-- 広 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">広</div>
+        <div class="kmeta">
+          <div class="kreading">コウ・ひろ(い)</div>
+          <div class="kmeaning">넓다 · 널리</div>
+          <div class="kstory">📢 넓은 지붕(广) 아래에서 팔(ム)을 쭉 뻗는 이미지<br>广 + ム → 「지붕 아래 공간이 넓~다!」<br>広告는 「널리(広) 알리다(告)」 — 告는 Day 3에서 배운 그 한자!</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">広告<span>こうこく</span></div>
+          <div class="kword">広報<span>こうほう</span></div>
+          <div class="kword">広場<span>ひろば</span></div>
+          <div class="kword">広げる<span>ひろげる</span></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst0"><span class="kanim-part" style="color:#60a5fa;left:43%;top:-48px">广</span><span class="kanim-part" style="color:#f87171;left:43%;top:120px">ム</span><div class="kanim-res">広</div></div>
+          <div class="kanim-cap" id="kcap0"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(0)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">新商品の<span class="hl">広告</span>をSNSに出しました</div>
+          <div class="ko">신상품 광고를 SNS에 냈습니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 宣 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">宣</div>
+        <div class="kmeta">
+          <div class="kreading">セン</div>
+          <div class="kmeaning">선포하다 · 널리 알리다</div>
+          <div class="kstory">📣 집(宀) 안에서 소식이 위아래(亘)로 쫙 퍼지는 이미지<br>宀 + 亘 → 「집에서 사방으로 널리 알린다」 = 선포!<br>宣伝은 「널리(宣) 전한다(伝)」 — 공식 발표는 宣言</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">宣伝<span>せんでん</span></div>
+          <div class="kword">宣言<span>せんげん</span></div>
+          <div class="kword">宣伝費<span>せんでんひ</span></div>
+          <div class="kword">宣伝効果<span>せんでんこうか</span></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst1"><span class="kanim-part" style="color:#60a5fa;left:43%;top:-48px">宀</span><span class="kanim-part" style="color:#fbbf24;left:43%;top:120px">亘</span><div class="kanim-res">宣</div></div>
+          <div class="kanim-cap" id="kcap1"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(1)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">インフルエンサーが新作クッションを<span class="hl">宣伝</span>してくれました</div>
+          <div class="ko">인플루언서가 신작 쿠션을 홍보해 주었습니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 効 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">効</div>
+        <div class="kmeta">
+          <div class="kreading">コウ・き(く)</div>
+          <div class="kmeaning">효과 · 듣다(약효)</div>
+          <div class="kstory">✨ 교류(交)한 힘(力)이 결과로 나타난다 = 효과!<br>交 + 力 → 「주고받은 힘이 통한다」<br>「広告が効く」 = 광고가 먹힌다! 약이 듣는 것도 効く</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">効果<span>こうか</span></div>
+          <div class="kword">効く<span>きく</span></div>
+          <div class="kword">有効<span>ゆうこう</span></div>
+          <div class="kword">効率<span>こうりつ</span></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst2"><span class="kanim-part" style="color:#f87171;left:8%;top:32px">交</span><span class="kanim-part" style="color:#34d399;left:78%;top:32px">力</span><div class="kanim-res">効</div></div>
+          <div class="kanim-cap" id="kcap2"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(2)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">広告の<span class="hl">効果</span>で今月の売上が2倍になりました</div>
+          <div class="ko">광고 효과로 이달 매출이 2배가 되었습니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 評 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">評</div>
+        <div class="kmeta">
+          <div class="kreading">ヒョウ</div>
+          <div class="kmeaning">평가 · 평판</div>
+          <div class="kstory">⚖️ 말(言)로 공평하게(平) 저울질한다 = 평가!<br>言 + 平 → 「치우치지 않은 말」 = 평판·평가<br>SNS 시대엔 口コミ의 評判이 최고의 広告!</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">評判<span>ひょうばん</span></div>
+          <div class="kword">評価<span>ひょうか</span></div>
+          <div class="kword">好評<span>こうひょう</span></div>
+          <div class="kword">不評<span>ふひょう</span></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst3"><span class="kanim-part" style="color:#60a5fa;left:8%;top:32px">言</span><span class="kanim-part" style="color:#f472b6;left:78%;top:32px">平</span><div class="kanim-res">評</div></div>
+          <div class="kanim-cap" id="kcap3"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(3)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">新作パックはSNSで<span class="hl">評判</span>になっています</div>
+          <div class="ko">신작 팩은 SNS에서 평판이 자자합니다</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 쓰기 연습 -->
+  <div class="write-section">
+    <div class="write-header">✍️ 직접 써보세요 — 가이드 보기 후 따라 쓰기</div>
+    <div class="canvas-row">
+      <div class="citem">
+        <div class="clabel">広</div>
+        <div class="canvas-wrap">
+          <canvas id="c0" width="160" height="160"></canvas>
+          <canvas id="g0" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(0)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(0,'広')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="clabel">宣</div>
+        <div class="canvas-wrap">
+          <canvas id="c1" width="160" height="160"></canvas>
+          <canvas id="g1" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(1)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(1,'宣')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="clabel">効</div>
+        <div class="canvas-wrap">
+          <canvas id="c2" width="160" height="160"></canvas>
+          <canvas id="g2" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(2)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(2,'効')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="clabel">評</div>
+        <div class="canvas-wrap">
+          <canvas id="c3" width="160" height="160"></canvas>
+          <canvas id="g3" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(3)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(3,'評')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 부수 조립 미니게임 -->
+  <div class="write-section" style="margin-top:18px;position:relative;">
+    <div class="write-header">🧩 부수 조립 챌린지 — 조각을 눌러 한자를 완성하세요 (한 자당 +10pt)</div>
+    <div class="kg-target" id="kgT"></div>
+    <div class="kg-char" id="kgC">？</div>
+    <div class="kg-pool" id="kgP"></div>
+    <div class="kg-fb" id="kgF"></div>
+  </div>
+
+  <!-- 핵심 단어 플립 카드 -->
+  <div class="vocab-section">
+    <div class="slabel">핵심 단어 — 클릭하면 뜻이 나와요</div>
+    <div class="vocab-grid">
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">広告</div><div class="vread">こうこく</div><div class="vko">광고</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">宣伝</div><div class="vread">せんでん</div><div class="vko">선전 · 홍보</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">効果</div><div class="vread">こうか</div><div class="vko">효과</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">評判</div><div class="vread">ひょうばん</div><div class="vko">평판 · 입소문</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">口コミ</div><div class="vread">くちコミ</div><div class="vko">입소문 리뷰</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">話題</div><div class="vread">わだい</div><div class="vko">화제</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">注目</div><div class="vread">ちゅうもく</div><div class="vko">주목</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">好評</div><div class="vread">こうひょう</div><div class="vko">호평</div></div>
+    </div>
+  </div>
+
+  <!-- 문법 1 -->
+  <div class="slabel">오늘의 문법 ① — 〜を通じて／〜を通して</div>
+  <div class="grammar-panel">
+    <div class="grammar-bar">
+      <div class="gpat">〜を通じて／〜を通して</div>
+      <div class="gmean">~을 통해서 (수단·매개)</div>
+    </div>
+    <div class="grammar-body">
+      <div class="gexplain">
+        「무언가를 매개·수단으로 해서」라는 뜻으로, <strong style="color:var(--acc2)">SNS·미디어·사람을 매개로 한 홍보 표현의 핵심</strong>입니다. を通じて는 다소 격식 있는 문어체, を通して는 구어에서도 자주 쓰이며 N2 시험에서는 거의 같은 뜻으로 취급됩니다.<br>
+        <strong style="color:var(--acc2)">접속:</strong> 명사 + を通じて／を通して　(例: SNS + を通じて)
+      </div>
+      <div class="gex"><div class="jp">SNS<span class="hl">を通じて</span>新商品を宣伝しています。</div><div class="ko">SNS를 통해 신상품을 홍보하고 있습니다.</div></div>
+      <div class="gex"><div class="jp">インフルエンサー<span class="hl">を通して</span>若い世代に広告を届けました。</div><div class="ko">인플루언서를 통해 젊은 세대에게 광고를 전달했습니다.</div></div>
+      <div class="gex"><div class="jp">バイヤー<span class="hl">を通じて</span>現地の評判を確認しました。</div><div class="ko">바이어를 통해 현지 평판을 확인했습니다.</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">오늘의 문법 ② — 〜おかげで／〜せいで</div>
+  <div class="grammar-panel">
+    <div class="grammar-bar">
+      <div class="gpat">〜おかげで／〜せいで</div>
+      <div class="gmean">~덕분에 / ~탓에</div>
+    </div>
+    <div class="grammar-body">
+      <div class="gexplain">
+        원인·이유를 나타내되, <strong style="color:var(--acc2)">おかげで는 좋은 결과(감사), せいで는 나쁜 결과(원망)</strong>에 씁니다. 중립적인 ため와 뉘앙스를 구분하는 것이 N2 포인트!<br>
+        <strong style="color:var(--acc2)">접속:</strong> 명사の / 동사·형용사 보통형 + おかげで·せいで　(例: 口コミの + おかげで)
+      </div>
+      <div class="gex"><div class="jp">口コミの<span class="hl">おかげで</span>、新作パックが話題になりました。</div><div class="ko">입소문 덕분에 신작 팩이 화제가 되었습니다.</div></div>
+      <div class="gex"><div class="jp">広告の効果の<span class="hl">おかげで</span>、売上が2倍に伸びました。</div><div class="ko">광고 효과 덕분에 매출이 2배로 늘었습니다.</div></div>
+      <div class="gex"><div class="jp">宣伝が足りなかった<span class="hl">せいで</span>、認知度が上がりませんでした。</div><div class="ko">홍보가 부족했던 탓에 인지도가 오르지 않았습니다.</div></div>
+    </div>
+  </div>
+
+  <!-- 약점 코너 -->
+  <div class="slabel">약점 극복 — 광고 현장의 수동태 & 경어 & 자타동사</div>
+  <div class="weak-grid">
+    <div class="wcard">
+      <div class="wcard-title">수동형 〜(ら)れる</div>
+      <div class="wcard-main">紹介される</div>
+      <div class="wcard-sub">소개되다 (수동)</div>
+      <div class="wex">新商品が人気動画で<span>紹介されました</span>。</div>
+      <div class="wko">신상품이 인기 동영상에서 소개되었습니다. (주어가 받는 입장 → 수동)</div>
+    </div>
+    <div class="wcard">
+      <div class="wcard-title">존경어 ご覧になる</div>
+      <div class="wcard-main">ご覧になる</div>
+      <div class="wcard-sub">보시다 (見る의 존경어)</div>
+      <div class="wex">広告を<span>ご覧になった</span>お客様が来店されました。</div>
+      <div class="wko">광고를 보신 손님이 내점하셨습니다. (손님의 행동 → 존경어)</div>
+    </div>
+    <div class="wcard">
+      <div class="wcard-title">겸양어 拝見する</div>
+      <div class="wcard-main">拝見する</div>
+      <div class="wcard-sub">보다 (見る의 겸양어)</div>
+      <div class="wex">御社の広告企画書を<span>拝見しました</span>。</div>
+      <div class="wko">귀사의 광고 기획서를 잘 봤습니다. (내 행동을 낮춤 → 겸양어)</div>
+    </div>
+    <div class="wcard">
+      <div class="wcard-title">자동사 / 타동사</div>
+      <div class="wcard-main">広がる / 広げる</div>
+      <div class="wcard-sub">퍼지다 / 넓히다·펼치다</div>
+      <div class="wex">口コミで評判が<span>広がっています</span>。</div>
+      <div class="wko">입소문으로 평판이 퍼지고 있습니다. (자동 — 저절로)</div>
+      <div class="wex" style="margin-top:4px">来年は海外に販路を<span>広げます</span>。</div>
+      <div class="wko">내년에는 해외로 판로를 넓힙니다. (타동 — 내가)</div>
+    </div>
+  </div>
+
+  <!-- 미션 -->
+  <div class="mission-banner">
+    <div class="mission-icon">🎯</div>
+    <div>
+      <div class="mission-title">오늘의 미션</div>
+      <div class="mission-text">
+        「〜を通じて」または「〜のおかげで」를 오늘 바이어 메일이나 SNS 문구에서 1번 실제로 써보세요.<br>
+        퀴즈 → 문법 → 독해 → 작문 순서로 풀면 최대 <strong style="color:var(--yellow)">150pt</strong> 획득 가능합니다!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 퀴즈 ══════════ -->
+<div class="section" id="sec-quiz">
+  <div class="sec-eyebrow">QUIZ · DAY 12</div>
+  <div class="sec-h2">한자 & 어휘 퀴즈</div>
+  <div class="sec-sub">읽기 → 뜻 → 직접 입력 순으로 난이도가 올라갑니다.</div>
+  <div class="quiz-wrap" style="margin-top:24px;">
+    <div class="qprog-bar"><div class="qprog-fill" id="qpf" style="width:0%"></div></div>
+    <div id="qbox"></div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 문법 ══════════ -->
+<div class="section" id="sec-grammar">
+  <div class="sec-eyebrow">GRAMMAR · DAY 12</div>
+  <div class="sec-h2">문법 빈칸 드릴</div>
+  <div class="sec-sub">〜を通じて / 〜おかげで·せいで 와 Day 11 복습 혼합 문제입니다.</div>
+  <div class="drill-wrap" style="margin-top:24px;">
+
+    <div class="drill-card">
+      <div class="drill-type">〜を通じて / 〜おかげで·せいで 드릴</div>
+      <div class="drill-q">
+        SNS<input class="blank" data-ans="を通じて" id="b1">新商品を宣伝しています。
+        <div class="drill-ko">SNS를 통해 신상품을 홍보하고 있습니다.</div>
+      </div>
+      <div class="drill-q">
+        口コミの<input class="blank" data-ans="おかげで" id="b2">、新作パックが話題になりました。
+        <div class="drill-ko">입소문 덕분에 신작 팩이 화제가 되었습니다.</div>
+      </div>
+      <div class="drill-q">
+        宣伝が足りなかった<input class="blank" data-ans="せいで" id="b3">、認知度が上がりませんでした。
+        <div class="drill-ko">홍보가 부족했던 탓에 인지도가 오르지 않았습니다.</div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn btn-acc" onclick="chk('b1','b2','b3')">정답 확인</button>
+        <button class="btn btn-ghost" onclick="ans('b1','b2','b3')">정답 보기</button>
+      </div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">Day 11 복습 — 向け / ないうちに</div>
+      <div class="drill-q">
+        20代<input class="blank" data-ans="向け" id="b4">の新作リップが評判になっています。
+        <div class="drill-ko">20대를 겨냥한 신작 립이 화제가 되고 있습니다.</div>
+      </div>
+      <div class="drill-q">
+        話題が冷めない<input class="blank" data-ans="うちに" id="b5">、次の宣伝を打ちましょう。
+        <div class="drill-ko">화제가 식기 전에 다음 홍보를 합시다.</div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn btn-acc" onclick="chk('b4','b5')">정답 확인</button>
+        <button class="btn btn-ghost" onclick="ans('b4','b5')">정답 보기</button>
+      </div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">자타동사 변환 드릴 — 広がる／広げる</div>
+      <div class="drill-q">
+        広がる（타동사로）来年は海外に販路を<input class="blank" data-ans="広げます" id="b6">。
+        <div class="drill-ko">내년에는 해외로 판로를 넓힙니다.</div>
+      </div>
+      <div class="drill-q">
+        広げる（자동사로）口コミで評判が<input class="blank" data-ans="広がっています" id="b7">。
+        <div class="drill-ko">입소문으로 평판이 퍼지고 있습니다.</div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn btn-acc" onclick="chk('b6','b7')">정답 확인</button>
+        <button class="btn btn-ghost" onclick="ans('b6','b7')">정답 보기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 독해 ══════════ -->
+<div class="section" id="sec-reading">
+  <div class="sec-eyebrow">READING · DAY 12</div>
+  <div class="sec-h2">読解問題</div>
+  <div class="sec-sub">다음 문장을 읽고 문제에 답하세요.</div>
+  <div style="max-width:700px;margin:24px auto 0;">
+    <div class="reading-text">
+      　先月、新作クッションファンデの発売に合わせて、SNS<span style="color:var(--acc2);font-weight:700">を通じて</span><span style="color:var(--acc2);font-weight:700">宣伝</span>を始めました。<span style="color:var(--acc2);font-weight:700">広告</span>費は多くありませんが、人気のインフルエンサーが動画で紹介してくれた<span style="color:var(--acc2);font-weight:700">おかげで</span>、商品は一気に<span style="color:var(--acc2);font-weight:700">話題</span>になりました。「カバー力が高いのに軽い」という<span style="color:var(--acc2);font-weight:700">口コミ</span>が広がり、Loftの売り場には広告を見たお客様が次々と来店しました。POSデータを確認すると、今月の売上は先月の2倍です。ただ、<span style="color:var(--acc2);font-weight:700">評判</span>は良いことばかりではありません。「値段が少し高い」という声もあります。お客様の<span style="color:var(--acc2);font-weight:700">評価</span>に耳を傾けながら、次の宣伝計画を立てるつもりです。
+    </div>
+
+    <div class="reading-q">
+      <div class="reading-qtext">問1. 商品が話題になった一番のきっかけは何ですか。</div>
+      <div class="r-choices">
+        <div class="r-choice" onclick="rchk(this,false)">① テレビ広告をたくさん出したから</div>
+        <div class="r-choice" onclick="rchk(this,true)">② インフルエンサーが動画で紹介したから</div>
+        <div class="r-choice" onclick="rchk(this,false)">③ 値段を下げたから</div>
+        <div class="r-choice" onclick="rchk(this,false)">④ 売り場を広げたから</div>
+      </div>
+    </div>
+
+    <div class="reading-q" style="margin-top:16px;">
+      <div class="reading-qtext">問2. この文章の内容に合っているものを選んでください。</div>
+      <div class="r-choices">
+        <div class="r-choice" onclick="rchk(this,false)">① 広告費をたくさん使った。</div>
+        <div class="r-choice" onclick="rchk(this,false)">② 今月の売上は先月と同じだった。</div>
+        <div class="r-choice" onclick="rchk(this,true)">③ 「値段が少し高い」という声もある。</div>
+        <div class="r-choice" onclick="rchk(this,false)">④ 次の宣伝計画はもう決まっている。</div>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;">
+      <button class="btn btn-yellow" onclick="toggleKaisetsu()">📖 후리가나 · 단어 해설 보기</button>
+      <span style="font-size:11px;color:var(--muted);margin-left:10px;">문제를 모두 풀면 자동으로 열립니다</span>
+    </div>
+    <div class="kaisetsu" id="kaisetsu">
+      <div class="kaisetsu-title">본문 후리가나</div>
+      <div class="furigana-text">　<ruby>先月<rt>せんげつ</rt></ruby>、<ruby>新作<rt>しんさく</rt></ruby>クッションファンデの<ruby>発売<rt>はつばい</rt></ruby>に<ruby>合<rt>あ</rt></ruby>わせて、SNSを<ruby>通<rt>つう</rt></ruby>じて<ruby>宣伝<rt>せんでん</rt></ruby>を<ruby>始<rt>はじ</rt></ruby>めました。<ruby>広告費<rt>こうこくひ</rt></ruby>は<ruby>多<rt>おお</rt></ruby>くありませんが、<ruby>人気<rt>にんき</rt></ruby>のインフルエンサーが<ruby>動画<rt>どうが</rt></ruby>で<ruby>紹介<rt>しょうかい</rt></ruby>してくれたおかげで、<ruby>商品<rt>しょうひん</rt></ruby>は<ruby>一気<rt>いっき</rt></ruby>に<ruby>話題<rt>わだい</rt></ruby>になりました。「カバー<ruby>力<rt>りょく</rt></ruby>が<ruby>高<rt>たか</rt></ruby>いのに<ruby>軽<rt>かる</rt></ruby>い」という<ruby>口<rt>くち</rt></ruby>コミが<ruby>広<rt>ひろ</rt></ruby>がり、Loftの<ruby>売<rt>う</rt></ruby>り<ruby>場<rt>ば</rt></ruby>には<ruby>広告<rt>こうこく</rt></ruby>を<ruby>見<rt>み</rt></ruby>たお<ruby>客様<rt>きゃくさま</rt></ruby>が<ruby>次々<rt>つぎつぎ</rt></ruby>と<ruby>来店<rt>らいてん</rt></ruby>しました。POSデータを<ruby>確認<rt>かくにん</rt></ruby>すると、<ruby>今月<rt>こんげつ</rt></ruby>の<ruby>売上<rt>うりあげ</rt></ruby>は<ruby>先月<rt>せんげつ</rt></ruby>の2<ruby>倍<rt>ばい</rt></ruby>です。ただ、<ruby>評判<rt>ひょうばん</rt></ruby>は<ruby>良<rt>よ</rt></ruby>いことばかりではありません。「<ruby>値段<rt>ねだん</rt></ruby>が<ruby>少<rt>すこ</rt></ruby>し<ruby>高<rt>たか</rt></ruby>い」という<ruby>声<rt>こえ</rt></ruby>もあります。お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>評価<rt>ひょうか</rt></ruby>に<ruby>耳<rt>みみ</rt></ruby>を<ruby>傾<rt>かたむ</rt></ruby>けながら、<ruby>次<rt>つぎ</rt></ruby>の<ruby>宣伝<rt>せんでん</rt></ruby><ruby>計画<rt>けいかく</rt></ruby>を<ruby>立<rt>た</rt></ruby>てるつもりです。</div>
+      <div class="kaisetsu-title">단어 해설</div>
+      <div class="wordlist">
+        <div class="witem"><span class="wjp">宣伝</span><span class="wrd">せんでん</span><div class="wmn">선전 · 홍보</div></div>
+        <div class="witem"><span class="wjp">広告費</span><span class="wrd">こうこくひ</span><div class="wmn">광고비</div></div>
+        <div class="witem"><span class="wjp">紹介</span><span class="wrd">しょうかい</span><div class="wmn">소개</div></div>
+        <div class="witem"><span class="wjp">一気に</span><span class="wrd">いっきに</span><div class="wmn">단숨에</div></div>
+        <div class="witem"><span class="wjp">話題</span><span class="wrd">わだい</span><div class="wmn">화제</div></div>
+        <div class="witem"><span class="wjp">口コミ</span><span class="wrd">くちコミ</span><div class="wmn">입소문</div></div>
+        <div class="witem"><span class="wjp">次々と</span><span class="wrd">つぎつぎと</span><div class="wmn">잇달아 · 연이어</div></div>
+        <div class="witem"><span class="wjp">売上</span><span class="wrd">うりあげ</span><div class="wmn">매출</div></div>
+        <div class="witem"><span class="wjp">評判</span><span class="wrd">ひょうばん</span><div class="wmn">평판</div></div>
+        <div class="witem"><span class="wjp">耳を傾ける</span><span class="wrd">みみをかたむける</span><div class="wmn">귀를 기울이다</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 작문 ══════════ -->
+<div class="section" id="sec-sakubun">
+  <div class="sec-eyebrow">WRITING · DAY 12</div>
+  <div class="sec-h2">作文問題</div>
+  <div class="sec-sub">다음 주제로 일본어 문장을 만들어 보세요. 오늘 배운 단어를 사용하면 보너스!</div>
+  <div style="max-width:700px;margin:24px auto 0;">
+
+    <div class="drill-card">
+      <div class="drill-type">문제 1 — 20~30자 (〜を通じて 사용)</div>
+      <div class="sakubun-q">"SNS를 통해 신상품을 홍보하고 있습니다"를 일본어로 써보세요.</div>
+      <textarea class="sakubun-input" id="sa1" placeholder="例: SNSを…"></textarea>
+      <div class="sakubun-hint">힌트: SNSを通じて ／ 新商品 ／ 宣伝しています</div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-acc" onclick="sbcheck('sa1',1)">제출 +20pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa1','SNSを通じて新商品を宣伝しています。')">모범 답안</button>
+      </div>
+      <div class="qfeedback" id="sf1"></div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">문제 2 — 20~30자 (〜おかげで 사용)</div>
+      <div class="sakubun-q">"입소문 덕분에 신작 팩이 화제가 되었습니다"를 일본어로 써보세요.</div>
+      <textarea class="sakubun-input" id="sa2" placeholder="일본어로 써보세요..."></textarea>
+      <div class="sakubun-hint">힌트: 口コミのおかげで ／ 新作パック ／ 話題になりました</div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-acc" onclick="sbcheck('sa2',2)">제출 +20pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa2','口コミのおかげで、新作パックが話題になりました。')">모범 답안</button>
+      </div>
+      <div class="qfeedback" id="sf2"></div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">문제 3 — 40~50자 (상급 / 오늘 표현 총동원)</div>
+      <div class="sakubun-q">今日学んだ表現を使って、自分の言葉で3つの文を作ってみよう！<br><span style="color:var(--muted);font-size:11px">~을 통해(を通じて) / ~덕분에(おかげで) / 선전(宣伝) / 광고(広告) / 평판(評判) 중 3개 이상 사용</span></div>
+      <textarea class="sakubun-input" id="sa3" placeholder="자유롭게 써보세요..." style="min-height:120px;"></textarea>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-acc" onclick="sbcheck('sa3',3)">제출 +30pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa3','SNSを通じて韓国コスメの魅力を宣伝しています。お客様の口コミのおかげで、評判が少しずつ広がっています。次は動画広告にも挑戦するつもりです。')">모범 답안</button>
+      </div>
+      <div class="qfeedback" id="sf3"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── 점수 ──
+let totalScore = 0;
+function addPt(n){ totalScore+=n; document.getElementById('sc').textContent=totalScore; }
+
+// ── 토스트 ──
+let tt;
+function toast(msg,type){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+(type||'');
+  clearTimeout(tt); tt=setTimeout(()=>el.className='toast',2300);
+}
+
+// ── 탭 전환 ──
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const m={learn:0,quiz:1,grammar:2,reading:3,sakubun:4};
+  document.querySelectorAll('.tab-btn')[m[id]].classList.add('active');
+  if(id==='quiz' && qIdx===0) renderQ();
+  window.scrollTo(0,0);
+}
+
+// ══ 캔버스 ══
+const ctxMap={}, strokeW={};
+function initC(i){
+  const c=document.getElementById('c'+i);
+  if(!c||ctxMap[i]) return;
+  const ctx=c.getContext('2d');
+  ctxMap[i]=ctx; strokeW[i]=8;
+  ctx.strokeStyle='#fbbf24'; ctx.lineWidth=8;
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  drawGrid(i);
+  let drawing=false,last=null;
+  function pos(e){
+    const r=c.getBoundingClientRect();
+    const s=e.touches?e.touches[0]:e;
+    return{x:(s.clientX-r.left)*(c.width/r.width),y:(s.clientY-r.top)*(c.height/r.height)};
+  }
+  c.addEventListener('pointerdown',e=>{drawing=true;last=pos(e);c.setPointerCapture(e.pointerId);});
+  c.addEventListener('pointermove',e=>{
+    if(!drawing)return; const p=pos(e);
+    ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;
+  });
+  c.addEventListener('pointerup',()=>drawing=false);
+  c.addEventListener('pointerleave',()=>drawing=false);
+}
+function drawGrid(i){
+  const g=document.getElementById('g'+i);
+  if(!g)return;
+  const gc=g.getContext('2d');
+  gc.clearRect(0,0,160,160);
+  gc.strokeStyle='rgba(255,255,255,.18)'; gc.lineWidth=1;
+  gc.setLineDash([3,3]);
+  gc.beginPath();gc.moveTo(80,0);gc.lineTo(80,160);gc.stroke();
+  gc.beginPath();gc.moveTo(0,80);gc.lineTo(160,80);gc.stroke();
+  gc.setLineDash([]);
+  gc.strokeStyle='rgba(255,255,255,.25)'; gc.lineWidth=1.5;
+  gc.strokeRect(1,1,158,158);
+}
+function cls(i){
+  if(ctxMap[i])ctxMap[i].clearRect(0,0,160,160);
+  drawGrid(i);
+}
+function guide(i,k){
+  const g=document.getElementById('g'+i);
+  if(!g)return;
+  const gc=g.getContext('2d');
+  drawGrid(i);
+  gc.font='110px "Noto Serif JP"';
+  gc.fillStyle='rgba(255,255,255,.22)';
+  gc.textAlign='center'; gc.textBaseline='middle';
+  gc.fillText(k,80,85);
+  toast('가이드를 보면서 따라 써보세요!','info');
+}
+[0,1,2,3].forEach(i=>initC(i));
+
+// ══ 퀴즈 데이터 ══
+const QS=[
+  {type:'read', k:'広告', m:'광고', choices:['こうこく','せんでん','こうか','ひょうばん'], ans:'こうこく'},
+  {type:'read', k:'宣伝', m:'선전·홍보', choices:['こうこく','せんでん','こうか','ひょうばん'], ans:'せんでん'},
+  {type:'read', k:'効果', m:'효과', choices:['こうこく','せんでん','こうか','ひょうばん'], ans:'こうか'},
+  {type:'read', k:'評判', m:'평판', choices:['こうこく','せんでん','こうか','ひょうばん'], ans:'ひょうばん'},
+  {type:'mean', k:'口コミ', r:'くちコミ', choices:['입소문','광고비','평가','화제'], ans:'입소문'},
+  {type:'mean', k:'話題', r:'わだい', choices:['화제','평판','효과','주목'], ans:'화제'},
+  {type:'mean', k:'好評', r:'こうひょう', choices:['호평','악평','평가','투표'], ans:'호평'},
+  {type:'write', prompt:'「광고」を日本語で書くと？', ans:'広告', hint:'こうこく'},
+  {type:'write', prompt:'「선전·홍보」の日本語は？', ans:'宣伝', hint:'せんでん'},
+
+];
+
+let qIdx=0, qOk=0, qNg=0, qDone=false;
+
+function renderQ(){
+  if(qIdx>=QS.length){showQResult();return;}
+  const q=QS[qIdx];
+  const pct=Math.round((qIdx/QS.length)*100);
+  document.getElementById('qpf').style.width=pct+'%';
+  let html=`<div class="qcard">`;
+  if(q.type==='read'){
+    html+=`<div class="qtype">읽는 법을 고르세요</div>
+    <div class="qmain">${q.k}</div><div class="qsub">${q.m}</div>
+    <div class="choices">${q.choices.map(c=>`<div class="choice" onclick="qchoice(this,'${c}','${q.ans}')">${c}</div>`).join('')}</div>`;
+  } else if(q.type==='mean'){
+    html+=`<div class="qtype">뜻을 고르세요</div>
+    <div class="qmain">${q.k}</div><div class="qsub">${q.r}</div>
+    <div class="choices">${q.choices.map(c=>`<div class="choice" onclick="qchoice(this,'${c}','${q.ans}')">${c}</div>`).join('')}</div>`;
+  } else {
+    html+=`<div class="qtype">직접 입력하세요</div>
+    <div class="qsub" style="font-size:15px;color:var(--text);margin-bottom:16px;">${q.prompt}</div>
+    <input class="qinput" id="qi" placeholder="${q.hint}">
+    <div class="qfeedback" id="qf"></div>`;
+  }
+  html+=`</div><div class="qactions">`;
+  if(q.type==='write') html+=`<button class="btn btn-acc" onclick="qwrite()">확인</button>`;
+  html+=`<button class="btn btn-ghost" id="nxtBtn" style="display:none" onclick="nxtQ()">다음 →</button></div>`;
+  document.getElementById('qbox').innerHTML=html;
+  qDone=false;
+  const qi=document.getElementById('qi');
+  if(qi) qi.addEventListener('keydown',e=>{if(e.key==='Enter')qwrite();});
+}
+
+function qchoice(el,chosen,ans){
+  if(qDone)return; qDone=true;
+  document.querySelectorAll('.choice').forEach(c=>c.classList.add('disabled'));
+  if(chosen===ans){el.classList.add('correct');addPt(10);qOk++;toast('정답! +10pt ✅','ok');}
+  else{
+    el.classList.add('wrong'); qNg++;
+    document.querySelectorAll('.choice').forEach(c=>{if(c.textContent===ans)c.classList.add('show-ans');});
+    toast('틀렸습니다 ❌','ng');
+  }
+  document.getElementById('nxtBtn').style.display='inline-block';
+}
+
+function qwrite(){
+  if(qDone)return; qDone=true;
+  const q=QS[qIdx]; const v=document.getElementById('qi').value.trim();
+  const fb=document.getElementById('qf'); const inp=document.getElementById('qi');
+  if(v===q.ans){
+    inp.classList.add('correct');
+    fb.className='qfeedback ok'; fb.textContent='✅ 정답! 「'+q.ans+'」';
+    addPt(15); qOk++; toast('정답! +15pt ✅','ok');
+  } else {
+    inp.classList.add('wrong');
+    fb.className='qfeedback ng'; fb.textContent='❌ 정답: 「'+q.ans+'」';
+    qNg++; toast('틀렸습니다 ❌','ng');
+  }
+  document.getElementById('nxtBtn').style.display='inline-block';
+}
+
+function nxtQ(){ qIdx++; renderQ(); }
+
+function showQResult(){
+  document.getElementById('qpf').style.width='100%';
+  const pct=Math.round((qOk/QS.length)*100);
+  const emoji=pct>=80?'🎉':pct>=60?'💪':'📚';
+  const msg=pct>=80?'훌륭합니다! N2 합격 레벨입니다!':pct>=60?'좋습니다! 조금 더 복습해보세요.':'오늘 학습 카드를 다시 복습해보세요!';
+  document.getElementById('qbox').innerHTML=`
+    <div class="result-wrap">
+      <div class="res-emoji">${emoji}</div>
+      <div class="res-score">${pct}%</div>
+      <div class="res-msg">${msg}</div>
+      <div class="res-grid">
+        <div class="ritem"><div class="rnum" style="color:var(--green)">${qOk}</div><div class="rlbl">정답</div></div>
+        <div class="ritem"><div class="rnum" style="color:var(--red)">${qNg}</div><div class="rlbl">오답</div></div>
+        <div class="ritem"><div class="rnum" style="color:var(--yellow)">${totalScore}</div><div class="rlbl">총점수</div></div>
+      </div>
+      <button class="btn btn-acc" onclick="restartQ()" style="margin-right:10px">다시 풀기 🔄</button>
+      <button class="btn btn-ghost" onclick="show('grammar')">문법 드릴 →</button>
+    </div>`;
+}
+
+function restartQ(){ qIdx=0; qOk=0; qNg=0; renderQ(); }
+
+// ══ 드릴 ══
+function chk(...ids){
+  let all=true;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    const v=el.value.trim(); el.classList.remove('ok','ng');
+    if(v===el.dataset.ans){el.classList.add('ok');}
+    else{el.classList.add('ng');all=false;}
+  });
+  if(all){addPt(20);toast('전부 정답! +20pt 🎉','ok');}
+  else toast('틀린 곳을 확인하세요 ❌','ng');
+}
+function ans(...ids){
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    el.value=el.dataset.ans; el.classList.add('ok');
+  });
+}
+
+// ══ 독해 ══
+let rAnswered=0;
+function toggleKaisetsu(){ document.getElementById('kaisetsu').classList.toggle('open'); }
+function rchk(el,correct){
+  const group=el.closest('.r-choices');
+  group.querySelectorAll('.r-choice').forEach(c=>{c.classList.add('disabled');});
+  if(correct){el.classList.add('correct');addPt(15);toast('정답! +15pt ✅','ok');}
+  else{
+    el.classList.add('wrong');
+    group.querySelectorAll('.r-choice').forEach(c=>{
+      if(c.getAttribute('onclick').includes('true'))c.classList.add('show-ans');
+    });
+    toast('틀렸습니다 ❌','ng');
+  }
+  rAnswered++;
+  if(rAnswered===2){
+    document.getElementById('kaisetsu').classList.add('open');
+    setTimeout(()=>toast('📖 해설이 열렸습니다! 후리가나와 단어를 확인하세요.','info'),1400);
+  }
+}
+
+// ══ 작문 ══
+const SB={
+  sa1:{pts:20, req:[['を通じて','「〜を通じて」를 사용해보세요 (例: SNSを通じて)'],['宣伝','「宣伝」을 넣어보세요']]},
+  sa2:{pts:20, req:[['おかげで','「〜おかげで」를 사용해보세요 (例: 口コミのおかげで)'],['口コミ','「口コミ」를 넣어보세요']]},
+  sa3:{pts:30, any:[['を通じて','を通じて(~을 통해)'],['おかげで','おかげで(~덕분에)'],['宣伝','宣伝(선전·홍보)'],['広告','広告(광고)'],['評判','評判(평판)']], anyMin:3, sent:3}
+
+};
+let sbAwarded={};
+function sbEval(id){
+  const v=document.getElementById(id).value.trim();
+  const cfg=SB[id]; const lines=[]; let pass=true;
+  if(cfg.req){
+    cfg.req.forEach(([pat,tip])=>{
+      if(v.includes(pat)) lines.push('✅ 「'+pat+'」 사용');
+      else {lines.push('❌ '+tip); pass=false;}
+    });
+  }
+  if(cfg.any){
+    const used=cfg.any.filter(([pat])=>v.includes(pat));
+    used.forEach(([pat])=>lines.push('✅ 「'+pat+'」 사용'));
+    if(used.length<cfg.anyMin){
+      pass=false;
+      const missing=cfg.any.filter(([pat])=>!v.includes(pat)).map(([,l])=>l).join(' · ');
+      lines.push('❌ 오늘의 표현 '+used.length+'/'+cfg.anyMin+'개 사용 — 후보: '+missing);
+    }
+  }
+  if(cfg.sent){
+    const cnt=v.split('。').filter(s=>s.trim().length>1).length;
+    if(cnt>=cfg.sent) lines.push('✅ 문장 '+cnt+'개 완성');
+    else {lines.push('❌ 문장이 '+cnt+'개예요 — 「。」로 끝나는 문장을 '+cfg.sent+'개 만들어보세요'); pass=false;}
+  }
+  return {v:v, lines:lines, pass:pass};
+}
+function sbcheck(id,n){
+  const fb=document.getElementById('sf'+n);
+  const r=sbEval(id);
+  if(r.v.length<5){fb.className='qfeedback ng';fb.textContent='문장을 입력해주세요.';return;}
+  if(r.pass){
+    if(!sbAwarded[id]){ addPt(SB[id].pts); sbAwarded[id]=true; toast('통과! +'+SB[id].pts+'pt 🎉','ok'); }
+    else toast('이미 점수를 받은 문제예요 ✅','info');
+    fb.className='qfeedback ok';
+    fb.innerHTML='🎉 모든 조건 통과! 훌륭합니다.<br>'+r.lines.join('<br>');
+  } else {
+    fb.className='qfeedback ng';
+    fb.innerHTML='조금만 더! 피드백을 보고 고쳐서 다시 제출해보세요.<br>'+r.lines.join('<br>');
+    toast('피드백을 확인하세요 ✍️','info');
+  }
+}
+// 실시간 피드백 — 입력하는 동안 자동 체크
+const sbTimers={};
+['sa1','sa2','sa3'].forEach((id,ix)=>{
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('input',()=>{
+    clearTimeout(sbTimers[id]);
+    sbTimers[id]=setTimeout(()=>{
+      const fb=document.getElementById('sf'+(ix+1));
+      const r=sbEval(id);
+      if(r.v.length<2){ fb.className='qfeedback'; fb.innerHTML=''; return; }
+      fb.className='qfeedback '+(r.pass?'ok':'ng');
+      fb.innerHTML=(r.pass?'🎉 조건 통과! 「제출」 버튼을 눌러 점수를 받으세요.':'✍️ 실시간 체크 중...')+'<br>'+r.lines.join('<br>');
+    },350);
+  });
+});
+function sbans(id,ans){
+  document.getElementById(id).value=ans;
+  toast('모범 답안을 확인하세요.','info');
+}
+
+// ══ 한자 스토리 애니메이션 (연출 강화판) ══
+const KANIM=[
+  {parts:[['43%',-48,'43%',6],['43%',120,'43%',52]],
+   props:[{ch:'📢',f:[78,50],t:[20,50]}],
+   caps:['① 广 = 넓은 지붕·건물','② ム = 팔을 쭉 뻗은 모양','③ 지붕 아래 공간이 쫙 펼쳐진다!','완성! 広 = 넓다 → 広告는 「널리 알림」!']},
+  {parts:[['43%',-48,'43%',6],['43%',120,'43%',52]],
+   props:[{ch:'📣',f:[45,50],t:[92,15]}],
+   caps:['① 宀 = 집·본사','② 亘 = 위아래로 쭉 뻗어 퍼지는 모양','③ 집에서 사방으로 소식이 퍼진다!','완성! 宣 = 널리 알리다 → 宣伝!']},
+  {parts:[['-15%',32,'22%',32],['108%',32,'62%',32]],
+   props:[{ch:'✨',f:[44,10],t:[44,60]}],
+   caps:['① 交 = 서로 주고받는 교류','② 力 = 힘','③ 주고받은 힘이 결과로 나타난다!','완성! 効 = 효과 → 広告が効く!']},
+  {parts:[['-15%',32,'20%',32],['108%',32,'60%',32]],
+   props:[{ch:'⚖️',f:[44,10],t:[44,55]}],
+   caps:['① 言 = 말','② 平 = 공평한 저울','③ 말로 공평하게 저울질한다!','완성! 評 = 평가·평판 → 評判이 최고의 광고!']}
+
+];
+const kanimT={};
+function ktype(el,txt){
+  clearInterval(el._iv); let i=0; el.textContent='';
+  el._iv=setInterval(()=>{el.textContent=txt.slice(0,++i);if(i>=txt.length)clearInterval(el._iv);},26);
+}
+function kfly(stage,cfg){
+  const el=document.createElement('div');
+  el.textContent=cfg.ch; el.className='kanim-fx';
+  el.style.cssText='position:absolute;font-size:26px;line-height:1;pointer-events:none;z-index:3;';
+  stage.appendChild(el);
+  const W=stage.offsetWidth,H=stage.offsetHeight;
+  const fx=cfg.f[0]/100*W, fy=cfg.f[1]/100*H, tx=cfg.t[0]/100*W, ty=cfg.t[1]/100*H;
+  const t0=performance.now(), dur=cfg.dur||950;
+  function step(t){
+    const p=Math.min((t-t0)/dur,1);
+    el.style.left=(fx+(tx-fx)*p)+'px';
+    el.style.top=(fy+(ty-fy)*p-30*Math.sin(Math.PI*p))+'px';
+    if(cfg.spin) el.style.transform='rotate('+(p*360)+'deg)';
+    if(p<1)requestAnimationFrame(step); else setTimeout(()=>el.remove(),300);
+  }
+  requestAnimationFrame(step);
+}
+function kburst(host){
+  const c=document.createElement('canvas');
+  c.width=host.offsetWidth||300; c.height=host.offsetHeight||110;
+  c.className='kanim-fx';
+  c.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;';
+  host.appendChild(c);
+  const x=c.getContext('2d');
+  const cols=['#fbbf24','#f87171','#34d399','#60a5fa','#f472b6'];
+  const P=Array.from({length:50},()=>({x:c.width/2,y:c.height/2,vx:(Math.random()-.5)*6,vy:-Math.random()*4.5-1.5,s:3+Math.random()*4,r:Math.random()*6,cl:cols[Math.floor(Math.random()*5)]}));
+  const t0=performance.now();
+  function f(t){
+    x.clearRect(0,0,c.width,c.height);
+    P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.cl;x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.restore();});
+    if((t-t0)<1500)requestAnimationFrame(f); else c.remove();
+  }
+  requestAnimationFrame(f);
+}
+function playKanim(i){
+  const cfg=KANIM[i];
+  const stage=document.getElementById('kst'+i), cap=document.getElementById('kcap'+i);
+  (kanimT[i]||[]).forEach(clearTimeout); const tm=kanimT[i]=[];
+  clearInterval(cap._iv);
+  stage.querySelectorAll('.kanim-fx').forEach(e=>e.remove());
+  const parts=stage.querySelectorAll('.kanim-part'), res=stage.querySelector('.kanim-res');
+  parts.forEach((p,j)=>{const c=cfg.parts[j];p.style.transition='none';p.style.opacity=0;p.style.left=c[0];p.style.top=c[1]+'px';});
+  res.style.opacity=0; res.style.transition='none'; res.style.transform='scale(2.4)';
+  cap.textContent='';
+  void stage.offsetWidth;
+  let t=250;
+  parts.forEach((p,j)=>{
+    tm.push(setTimeout(()=>{
+      const c=cfg.parts[j];
+      p.style.transition='all .55s cubic-bezier(.34,1.56,.64,1)';
+      p.style.opacity=1; p.style.left=c[2]; p.style.top=c[3]+'px';
+      ktype(cap,cfg.caps[j]);
+    },t));
+    t+=1350;
+  });
+  tm.push(setTimeout(()=>{
+    (cfg.props||[]).forEach(pr=>kfly(stage,pr));
+    ktype(cap,cfg.caps[parts.length]);
+  },t)); t+=1450;
+  tm.push(setTimeout(()=>{
+    parts.forEach(p=>p.style.opacity=0);
+    res.style.transition='all .35s ease-out'; res.style.opacity=1; res.style.transform='scale(1)';
+    stage.style.animation='none'; void stage.offsetWidth; stage.style.animation='kshk .3s ease';
+    kburst(stage);
+    ktype(cap,cfg.caps[parts.length+1]);
+  },t));
+}
+
+// ══ 부수 조립 미니게임 ══
+const KG=[
+  {res:'広',need:['广','ム'],label:'Q1. 「넓다」 — 지붕(?) 아래 팔(?)을 펼친다'},
+  {res:'宣',need:['宀','亘'],label:'Q2. 「선포」 — 집(?)에서 사방(?)으로 소식이 퍼진다'},
+  {res:'効',need:['交','力'],label:'Q3. 「효과」 — 교류(?)한 힘(?)이 결과로 나타난다'},
+  {res:'評',need:['言','平'],label:'Q4. 「평판」 — 말(?)로 공평하게(?) 저울질한다'}
+
+];
+let kgR=0, kgSel=[];
+function kgShow(){
+  const T=document.getElementById('kgT'),C=document.getElementById('kgC'),Fb=document.getElementById('kgF');
+  if(kgR>=KG.length){T.textContent='';C.textContent='🏆';Fb.textContent='4자 모두 조립 완료! 대단합니다 (+40pt)';return;}
+  T.textContent=KG[kgR].label+'　('+(kgR+1)+'/4 · 조각 '+KG[kgR].need.length+'개)';
+  C.textContent='？'; C.style.color=''; Fb.textContent='애니메이션에서 본 스토리를 떠올려 보세요'; kgSel=[];
+}
+function kgPick(el){
+  if(kgR>=KG.length) return;
+  const ch=el.textContent;
+  if(el.classList.contains('sel')){el.classList.remove('sel');kgSel=kgSel.filter(c=>c!==ch);return;}
+  el.classList.add('sel'); kgSel.push(ch);
+  const need=KG[kgR].need;
+  if(kgSel.length<need.length) return;
+  const ok=need.every(c=>kgSel.includes(c));
+  const C=document.getElementById('kgC'), P=document.getElementById('kgP');
+  if(ok){
+    document.querySelectorAll('.kg-piece.sel').forEach(e=>{e.classList.remove('sel');e.classList.add('used');});
+    C.textContent=KG[kgR].res; C.style.color='#fbbf24';
+    C.style.animation='none'; void C.offsetWidth; C.style.animation='kshk .3s ease';
+    kburst(C); addPt(10); toast('조립 성공! +10pt 🎉','ok');
+    kgR++; setTimeout(kgShow,1500);
+  } else {
+    P.style.animation='none'; void P.offsetWidth; P.style.animation='kshk .3s ease';
+    toast('그 조합이 아니에요 — 다시!','ng');
+    setTimeout(()=>{document.querySelectorAll('.kg-piece.sel').forEach(e=>e.classList.remove('sel'));kgSel=[];},450);
+  }
+}
+(function kgInit(){
+  const P=document.getElementById('kgP'); if(!P) return;
+  const pool=['广','ム','宀','亘','交','力','言','平'].sort(()=>Math.random()-.5);
+  P.innerHTML=pool.map(ch=>'<span class="kg-piece" onclick="kgPick(this)">'+ch+'</span>').join('');
+  kgShow();
+})();
+</script>
+</body>
+</html>

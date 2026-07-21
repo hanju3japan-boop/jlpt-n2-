@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLPT N2 — Day 15 | 輸出入・通関</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:#1b1b36; --s1:#26264c; --s2:#30305e; --s3:#3a3a70;
+  --border:#44447c; --border2:#545494;
+  --acc:#7c6fff; --acc2:#c084fc; --acc3:#38bdf8;
+  --green:#34d399; --red:#f87171; --yellow:#fbbf24; --orange:#fb923c;
+  --text:#f2f0fa; --muted:#a0a0cc; --muted2:#b8b8e0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans JP',sans-serif;min-height:100vh;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;
+  border-bottom:1px solid var(--border);position:sticky;top:0;
+  background:rgba(27,27,54,0.95);backdrop-filter:blur(16px);z-index:200;}
+.nav-left{display:flex;align-items:center;gap:16px;}
+.nav-logo{font-family:'Noto Serif JP';font-size:17px;color:#fff;letter-spacing:.06em;}
+.nav-logo span{color:var(--acc);}
+.nav-day{background:var(--acc);color:#fff;font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:20px;letter-spacing:.08em;}
+.nav-theme{font-size:12px;color:var(--muted2);}
+.nav-tabs{display:flex;gap:3px;}
+.tab-btn{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  background:transparent;color:var(--muted);transition:all .2s;}
+.tab-btn.active{background:var(--s2);color:#fff;}
+.tab-btn:hover:not(.active){color:var(--text);}
+.nav-score{display:flex;align-items:center;gap:8px;background:var(--s1);
+  border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;border:1px solid var(--border);}
+.score-num{color:var(--yellow);font-size:16px;font-weight:700;}
+
+/* SECTIONS */
+.section{display:none;padding:28px 20px;max-width:980px;margin:0 auto;}
+.section.active{display:block;}
+
+/* SECTION HEADER */
+.sec-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:6px;}
+.sec-h2{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.sec-sub{font-size:13px;color:var(--muted);}
+
+/* ══ LEARN ══ */
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0;}
+@media(max-width:700px){.learn-grid{grid-template-columns:1fr;}}
+
+/* 한자 카드 */
+.kcard{background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  transition:border-color .2s;}
+.kcard:hover{border-color:var(--acc);}
+.kcard-top{display:flex;align-items:stretch;background:var(--s2);border-bottom:1px solid var(--border);}
+.kbig{font-family:'Noto Serif JP';font-size:72px;color:#fff;
+  padding:16px 20px;text-shadow:0 0 40px rgba(124,111,255,.3);
+  border-right:1px solid var(--border);min-width:110px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.kmeta{padding:14px 16px;flex:1;}
+.kreading{display:inline-block;background:var(--acc);color:#fff;
+  padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  margin-bottom:6px;letter-spacing:.06em;}
+.kmeaning{font-size:14px;font-weight:700;color:#fff;margin-bottom:5px;}
+.kstory{font-size:11px;color:#d8d5f0;line-height:1.7;
+  border-left:2px solid var(--acc);padding-left:8px;}
+.kbody{padding:12px 16px;}
+.kwords{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.kword{background:var(--s3);border:1px solid var(--border2);border-radius:6px;
+  padding:4px 10px;font-size:11px;font-family:'Noto Sans JP';color:var(--text);}
+.kword span{color:var(--muted2);font-size:10px;margin-left:4px;}
+.kword i{font-style:normal;color:var(--green);font-size:10px;margin-left:4px;}
+.kex{background:rgba(0,0,0,.18);border-radius:8px;padding:8px 12px;}
+.kex .jp{font-size:12px;color:#eceafd;margin-bottom:2px;font-family:'Noto Sans JP';}
+.kex .hl{color:var(--acc2);font-weight:700;}
+.kex .ko{font-size:10px;color:var(--muted);}
+
+/* 쓰기 캔버스 */
+.write-section{background:var(--s1);border:1px solid var(--border);border-radius:16px;
+  padding:20px;margin:20px 0;}
+.write-header{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;}
+.canvas-row{display:flex;flex-wrap:wrap;gap:16px;}
+.citem{text-align:center;}
+.clabel{font-size:12px;font-weight:700;color:var(--acc2);margin-bottom:6px;
+  font-family:'Noto Serif JP';}
+.canvas-wrap{position:relative;display:inline-block;}
+canvas{border:1px solid var(--border);border-radius:10px;cursor:crosshair;
+  background:#2a2560;touch-action:none;display:block;}
+.cbtn-row{display:flex;gap:6px;margin-top:6px;justify-content:center;}
+
+/* 단어카드 */
+.vocab-section{margin:20px 0;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px;}
+.vcard{background:var(--s1);border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;cursor:pointer;transition:all .2s;user-select:none;}
+.vcard:hover{border-color:var(--acc);transform:translateY(-2px);}
+.vcard .vjp{font-size:16px;font-family:'Noto Sans JP';color:#fff;margin-bottom:3px;}
+.vcard .vread{font-size:11px;color:var(--acc);margin-bottom:2px;}
+.vcard .vko{font-size:11px;color:var(--muted);display:none;}
+.vcard.flipped .vko{display:block;}
+.vcard.flipped .vjp{color:var(--acc2);}
+
+/* 문법 */
+.grammar-panel{background:var(--s1);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;margin:20px 0;}
+.grammar-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;
+  background:var(--s2);border-bottom:1px solid var(--border);}
+.gpat{font-family:'Noto Serif JP';font-size:18px;color:var(--acc2);font-weight:700;}
+.gmean{font-size:12px;color:var(--muted);margin-left:auto;}
+.grammar-body{padding:18px;}
+.gexplain{font-size:13px;color:#d8d5f0;line-height:1.8;margin-bottom:12px;}
+.gex{padding:8px 0;border-bottom:1px solid rgba(84,84,148,.4);}
+.gex:last-child{border:none;}
+.gex .jp{font-size:13px;color:#eceafd;font-family:'Noto Sans JP';margin-bottom:2px;}
+.gex .hl{color:var(--acc2);font-weight:700;}
+.gex .ko{font-size:10px;color:var(--muted);}
+.gpat ruby rt,.gexplain ruby rt,.gex .jp ruby rt,.slabel ruby rt,.wcard-main ruby rt,.wcard-sub ruby rt,.wex ruby rt{font-size:8px;color:var(--yellow);font-weight:400;}
+
+/* 약점 코너 */
+.weak-section{margin:20px 0;}
+.weak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:12px;}
+.wcard{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.wcard-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.wcard-main{font-family:'Noto Serif JP';font-size:16px;color:var(--acc2);margin-bottom:4px;}
+.wcard-sub{font-size:12px;color:var(--muted2);margin-bottom:8px;}
+.wex{font-size:11px;color:#d8d5f0;font-family:'Noto Sans JP';line-height:1.7;margin-bottom:2px;}
+.wex span{color:var(--acc2);}
+.wko{font-size:10px;color:var(--muted);}
+
+/* ══ QUIZ ══ */
+.quiz-wrap{max-width:640px;margin:0 auto;}
+.qprog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:24px;}
+.qprog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:2px;transition:width .4s;}
+.qcard{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:18px;}
+.qtype{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+.qmain{font-family:'Noto Serif JP';font-size:40px;color:#fff;text-align:center;margin-bottom:6px;}
+.qsub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.8;}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.choice{padding:13px 16px;background:var(--s2);border:1px solid var(--border);
+  border-radius:10px;cursor:pointer;font-size:13px;color:var(--text);
+  transition:all .15s;text-align:center;font-family:'Noto Sans JP';}
+.choice:hover{border-color:var(--acc);color:#fff;background:rgba(124,111,255,.1);}
+.choice.correct{border-color:var(--green);background:rgba(52,211,153,.1);color:var(--green);}
+.choice.wrong{border-color:var(--red);background:rgba(248,113,113,.1);color:var(--red);}
+.choice.show-ans{border-color:var(--green);background:rgba(52,211,153,.06);color:var(--green);}
+.choice.disabled{pointer-events:none;}
+.qinput{width:100%;padding:13px 16px;background:var(--s2);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:16px;font-family:'Noto Sans JP';
+  outline:none;transition:border-color .2s;text-align:center;}
+.qinput:focus{border-color:var(--acc);}
+.qinput.correct{border-color:var(--green);background:rgba(52,211,153,.08);}
+.qinput.wrong{border-color:var(--red);background:rgba(248,113,113,.08);}
+.qfeedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12px;display:none;}
+.qfeedback.ok{background:rgba(52,211,153,.1);color:var(--green);display:block;}
+.qfeedback.ng{background:rgba(248,113,113,.1);color:var(--red);display:block;}
+.qactions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
+
+/* 작문 문제 */
+.sakubun-q{background:var(--s2);border-radius:10px;padding:14px 16px;
+  font-size:13px;color:var(--text);line-height:1.9;margin-bottom:10px;font-family:'Noto Sans JP';}
+.sakubun-input{width:100%;min-height:80px;padding:12px 14px;
+  background:rgba(0,0,0,.18);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:13px;font-family:'Noto Sans JP';
+  outline:none;resize:vertical;line-height:1.8;}
+.sakubun-input:focus{border-color:var(--acc);}
+.sakubun-hint{font-size:11px;color:var(--muted);margin-top:6px;}
+
+/* 결과 */
+.result-wrap{text-align:center;padding:50px 20px;}
+.res-emoji{font-size:60px;margin-bottom:16px;}
+.res-score{font-size:52px;font-weight:700;color:var(--yellow);}
+.res-msg{font-size:14px;color:var(--muted);margin:8px 0 28px;}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:360px;margin:0 auto 28px;}
+.ritem{background:var(--s1);border-radius:10px;padding:14px;}
+.rnum{font-size:24px;font-weight:700;}
+.rlbl{font-size:11px;color:var(--muted);}
+
+/* ══ GRAMMAR DRILL ══ */
+.drill-wrap{max-width:700px;margin:0 auto;}
+.drill-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;
+  padding:22px;margin-bottom:16px;}
+.drill-type{font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:10px;}
+.drill-q{font-size:14px;font-family:'Noto Sans JP';line-height:2.2;color:var(--text);
+  background:var(--s2);border-radius:10px;padding:14px 16px;margin-bottom:8px;}
+.blank{display:inline-block;min-width:90px;padding:4px 10px;
+  background:rgba(0,0,0,.18);border:1px dashed var(--border);border-radius:6px;
+  color:var(--acc2);font-family:'Noto Sans JP';font-size:14px;
+  outline:none;transition:all .2s;vertical-align:middle;text-align:center;}
+.blank:focus{border-color:var(--acc);border-style:solid;}
+.blank.ok{border-color:var(--green);border-style:solid;color:var(--green);background:rgba(52,211,153,.06);}
+.blank.ng{border-color:var(--red);border-style:solid;color:var(--red);background:rgba(248,113,113,.06);}
+.drill-ko{font-size:11px;color:var(--muted);margin-top:4px;}
+.drill-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+
+/* 독해 */
+.reading-text{background:var(--s2);border-radius:12px;padding:18px;
+  font-size:14px;font-family:'Noto Sans JP';line-height:2;color:var(--text);margin-bottom:16px;}
+.reading-q{margin-bottom:14px;}
+.reading-qtext{font-size:13px;color:#eceafd;font-family:'Noto Sans JP';
+  margin-bottom:8px;line-height:1.8;}
+.r-choices{display:flex;flex-direction:column;gap:6px;}
+.r-choice{padding:10px 14px;background:var(--s2);border:1px solid var(--border);
+  border-radius:8px;cursor:pointer;font-size:12px;font-family:'Noto Sans JP';
+  color:var(--text);transition:all .15s;}
+.r-choice:hover{border-color:var(--acc);}
+.r-choice.correct{border-color:var(--green);background:rgba(52,211,153,.08);color:var(--green);}
+.r-choice.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);}
+.r-choice.show-ans{border-color:var(--green);background:rgba(52,211,153,.05);color:var(--green);}
+.r-choice.disabled{pointer-events:none;}
+
+
+/* 독해 해설 */
+.kaisetsu{display:none;margin-top:18px;}
+.kaisetsu.open{display:block;}
+.kaisetsu-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:14px 0 8px;}
+.furigana-text{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px;
+  font-size:15px;font-family:'Noto Sans JP';line-height:2.7;color:var(--text);}
+.furigana-text ruby rt{font-size:9px;color:var(--yellow);font-weight:400;}
+.wordlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.witem{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:9px 12px;
+  font-size:12px;font-family:'Noto Sans JP';}
+.witem .wjp{color:#fff;font-weight:700;}
+.witem .wrd{color:var(--yellow);font-size:10px;margin-left:6px;}
+.witem .wmn{color:var(--muted2);font-size:11px;margin-top:2px;}
+
+/* ── COMMON BUTTONS ── */
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;
+  font-size:12px;font-weight:600;transition:all .15s;}
+.btn-ghost{background:var(--s2);color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--acc);color:var(--acc);}
+.btn-acc{background:var(--acc);color:#fff;}
+.btn-acc:hover{background:#6a5eee;}
+.btn-danger{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.3);}
+.btn-danger:hover{background:rgba(248,113,113,.2);}
+.btn-yellow{background:rgba(251,191,36,.12);color:var(--yellow);border:1px solid rgba(251,191,36,.3);}
+.btn-yellow:hover{background:rgba(251,191,36,.2);}
+
+/* 미션 배너 */
+.mission-banner{background:linear-gradient(135deg,rgba(124,111,255,.15),rgba(192,132,252,.1));
+  border:1px solid rgba(124,111,255,.3);border-radius:14px;padding:18px 22px;
+  display:flex;align-items:flex-start;gap:14px;margin-top:28px;}
+.mission-icon{font-size:28px;flex-shrink:0;}
+.mission-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:4px;}
+.mission-text{font-size:13px;color:var(--text);line-height:1.7;}
+
+/* 토스트 */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--s2);border:1px solid var(--border);
+  padding:10px 22px;border-radius:30px;font-size:13px;font-weight:500;
+  transition:transform .3s;z-index:9999;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--green);color:var(--green);}
+.toast.ng{border-color:var(--red);color:var(--red);}
+.toast.info{border-color:var(--acc);color:var(--acc);}
+
+/* 섹션 구분 라벨 */
+.slabel{font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:8px;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
+
+@media(max-width:600px){
+  .qmain{font-size:28px;}
+  .choices{grid-template-columns:1fr;}
+  .kbig{font-size:52px;min-width:80px;}
+  nav{padding:10px 14px;}
+  .nav-theme{display:none;}
+}
+
+/* 한자 스토리 애니메이션 */
+.kanim{margin-top:12px;}
+.kanim-stage{position:relative;height:110px;border-radius:10px;background:rgba(255,255,255,.05);overflow:hidden;}
+.kanim-part{position:absolute;font-size:38px;font-family:'Noto Serif JP',serif;opacity:0;transition:all .8s ease;line-height:1;font-weight:700;}
+.kanim-res{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:56px;font-family:'Noto Serif JP',serif;opacity:0;transition:opacity .9s ease;line-height:1;font-weight:700;}
+.kanim-cap{font-size:12px;color:var(--muted);min-height:32px;margin-top:8px;line-height:1.5;}
+
+/* 연출 강화 + 조립 게임 */
+@keyframes kshk{0%,100%{transform:translate(0)}25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-2px,-1px)}}
+.kg-target{text-align:center;font-size:13px;color:var(--muted);margin:10px 0 4px;}
+.kg-char{position:relative;text-align:center;font-size:60px;font-family:'Noto Serif JP',serif;min-height:74px;line-height:74px;font-weight:700;}
+.kg-pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;}
+.kg-piece{font-size:24px;font-family:'Noto Serif JP',serif;padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:10px;cursor:pointer;background:rgba(255,255,255,.05);transition:transform .15s,border-color .15s,color .15s;user-select:none;}
+.kg-piece.sel{border-color:#fbbf24;color:#fbbf24;transform:translateY(-3px);}
+.kg-piece.used{opacity:.22;pointer-events:none;}
+.kg-fb{text-align:center;font-size:12px;color:var(--muted);min-height:18px;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">N2<span>·</span></div>
+    <div class="nav-day">DAY 15</div>
+    <div class="nav-theme">今日のテーマ：輸出入・通関</div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="show('learn')">📖 학습</button>
+    <button class="tab-btn" onclick="show('quiz')">✏️ 퀴즈</button>
+    <button class="tab-btn" onclick="show('grammar')">📐 문법</button>
+    <button class="tab-btn" onclick="show('reading')">📄 독해</button>
+    <button class="tab-btn" onclick="show('sakubun')">📝 작문</button>
+  </div>
+  <div class="nav-score">🏆 <span class="score-num" id="sc">0</span>pt</div>
+</nav>
+
+<!-- ══════════ SECTION: 학습 ══════════ -->
+<div class="section active" id="sec-learn">
+  <div class="sec-eyebrow">JLPT N2 · DAY 15</div>
+  <div class="sec-h2">輸出入・通関 — 오늘의 학습</div>
+  <div class="sec-sub">한자 4자 · 핵심 단어 · 문법 · 약점 코너</div>
+
+  <div class="slabel">오늘의 한자 4자</div>
+  <div class="learn-grid">
+
+    <!-- 輸 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">輸</div>
+        <div class="kmeta">
+          <div class="kreading">ユ</div>
+          <div class="kmeaning">나르다 · 수송</div>
+          <div class="kstory">🚛 수레(車)에 짐을 실어 배까지 옮긴다(兪)!<br>車 + 兪 → 「수레로 실어 나른다」 = 수송!<br>輸入은 「안으로(入) 나르다(輸)」 — 부산→도쿄 수입의 핵심 한자!</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">輸入<span>ゆにゅう</span><i>수입</i></div>
+          <div class="kword">輸出<span>ゆしゅつ</span><i>수출</i></div>
+          <div class="kword">輸送<span>ゆそう</span><i>수송</i></div>
+          <div class="kword">運輸<span>うんゆ</span><i>운수</i></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst0"><span class="kanim-part" style="color:#fbbf24;left:8%;top:32px">車</span><span class="kanim-part" style="color:#34d399;left:78%;top:32px">兪</span><div class="kanim-res">輸</div></div>
+          <div class="kanim-cap" id="kcap0"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(0)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">韓国コスメの<span class="hl">輸入</span>手続きを進めています</div>
+          <div class="ko">한국 화장품의 수입 절차를 진행하고 있습니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 関 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">関</div>
+        <div class="kmeta">
+          <div class="kreading">カン・せき・かか(わる)</div>
+          <div class="kmeaning">관문 · 관계하다</div>
+          <div class="kstory">🚧 문(門) 앞에 빗장(关)을 걸고 지나가는 짐을 검사한다!<br>門 + 关 → 「빗장 걸린 문」 = 관문!<br>税関은 「세금(税) 걷는 관문(関)」 — 수입 화물의 첫 관문!</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">税関<span>ぜいかん</span><i>세관</i></div>
+          <div class="kword">通関<span>つうかん</span><i>통관</i></div>
+          <div class="kword">関税<span>かんぜい</span><i>관세</i></div>
+          <div class="kword">関係<span>かんけい</span><i>관계</i></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst1"><span class="kanim-part" style="color:#60a5fa;left:8%;top:32px">門</span><span class="kanim-part" style="color:#f87171;left:78%;top:32px">关</span><div class="kanim-res">関</div></div>
+          <div class="kanim-cap" id="kcap1"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(1)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">新商品が<span class="hl">税関</span>で止まっていて、確認中です</div>
+          <div class="ko">신상품이 세관에서 멈춰 있어서 확인 중입니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 税 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">税</div>
+        <div class="kmeta">
+          <div class="kreading">ゼイ</div>
+          <div class="kmeaning">세금</div>
+          <div class="kstory">🌾 수확한 벼(禾)를 나라에 바꿔 바친다(兌)!<br>禾 + 兌 → 「곡식을 바쳐 낸다」 = 세금!<br>関税는 「관문(関)에서 내는 세금(税)」 — 수입 원가 계산의 복병!</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">関税<span>かんぜい</span><i>관세</i></div>
+          <div class="kword">消費税<span>しょうひぜい</span><i>소비세</i></div>
+          <div class="kword">免税<span>めんぜい</span><i>면세</i></div>
+          <div class="kword">税金<span>ぜいきん</span><i>세금</i></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst2"><span class="kanim-part" style="color:#34d399;left:8%;top:32px">禾</span><span class="kanim-part" style="color:#fbbf24;left:78%;top:32px">兌</span><div class="kanim-res">税</div></div>
+          <div class="kanim-cap" id="kcap2"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(2)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">化粧品の<span class="hl">関税</span>を事前に計算しておきました</div>
+          <div class="ko">화장품의 관세를 사전에 계산해 두었습니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 検 -->
+    <div class="kcard">
+      <div class="kcard-top">
+        <div class="kbig">検</div>
+        <div class="kmeta">
+          <div class="kreading">ケン</div>
+          <div class="kmeaning">검사하다 · 조사하다</div>
+          <div class="kstory">🔍 나무(木) 상자를 여럿이 모두(僉) 둘러싸고 살펴본다!<br>木 + 僉 → 「상자를 다 같이 조사한다」 = 검사!<br>化粧品은 성분 検査 필수 — 통관의 마지막 관문!</div>
+        </div>
+      </div>
+      <div class="kbody">
+        <div class="kwords">
+          <div class="kword">検査<span>けんさ</span><i>검사</i></div>
+          <div class="kword">検疫<span>けんえき</span><i>검역</i></div>
+          <div class="kword">検討<span>けんとう</span><i>검토</i></div>
+          <div class="kword">点検<span>てんけん</span><i>점검</i></div>
+        </div>
+        <div class="kanim">
+          <div class="kanim-stage" id="kst3"><span class="kanim-part" style="color:#c084fc;left:8%;top:32px">木</span><span class="kanim-part" style="color:#fb923c;left:78%;top:32px">僉</span><div class="kanim-res">検</div></div>
+          <div class="kanim-cap" id="kcap3"></div>
+          <div style="margin-top:6px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="playKanim(3)">▶ 스토리 애니메이션</button></div>
+        </div>
+        <div class="kex">
+          <div class="jp">サンプルが成分<span class="hl">検査</span>を無事に通りました</div>
+          <div class="ko">샘플이 성분 검사를 무사히 통과했습니다</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 쓰기 연습 -->
+  <div class="write-section">
+    <div class="write-header">✍️ 직접 써보세요 — 가이드 보기 후 따라 쓰기</div>
+    <div class="canvas-row">
+      <div class="citem">
+        <div class="clabel">輸</div>
+        <div class="canvas-wrap">
+          <canvas id="c0" width="160" height="160"></canvas>
+          <canvas id="g0" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(0)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(0,'輸')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="clabel">関</div>
+        <div class="canvas-wrap">
+          <canvas id="c1" width="160" height="160"></canvas>
+          <canvas id="g1" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(1)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(1,'関')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="clabel">税</div>
+        <div class="canvas-wrap">
+          <canvas id="c2" width="160" height="160"></canvas>
+          <canvas id="g2" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(2)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(2,'税')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="clabel">検</div>
+        <div class="canvas-wrap">
+          <canvas id="c3" width="160" height="160"></canvas>
+          <canvas id="g3" width="160" height="160" style="position:absolute;top:0;left:0;pointer-events:none;border-radius:10px;background:transparent;border-color:transparent;"></canvas>
+        </div>
+        <div class="cbtn-row">
+          <button class="btn btn-danger" onclick="cls(3)" style="font-size:11px;padding:5px 10px">지우기</button>
+          <button class="btn btn-ghost" onclick="guide(3,'検')" style="font-size:11px;padding:5px 10px">가이드</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 부수 조립 미니게임 -->
+  <div class="write-section" style="margin-top:18px;position:relative;">
+    <div class="write-header">🧩 부수 조립 챌린지 — 조각을 눌러 한자를 완성하세요 (한 자당 +10pt)</div>
+    <div class="kg-target" id="kgT"></div>
+    <div class="kg-char" id="kgC">？</div>
+    <div class="kg-pool" id="kgP"></div>
+    <div class="kg-fb" id="kgF"></div>
+  </div>
+
+  <!-- 핵심 단어 플립 카드 -->
+  <div class="vocab-section">
+    <div class="slabel">핵심 단어 — 클릭하면 뜻이 나와요</div>
+    <div class="vocab-grid">
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">輸入</div><div class="vread">ゆにゅう</div><div class="vko">수입</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">輸出</div><div class="vread">ゆしゅつ</div><div class="vko">수출</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">通関</div><div class="vread">つうかん</div><div class="vko">통관</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">税関</div><div class="vread">ぜいかん</div><div class="vko">세관</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">関税</div><div class="vread">かんぜい</div><div class="vko">관세</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">検査</div><div class="vread">けんさ</div><div class="vko">검사</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">手続き</div><div class="vread">てつづき</div><div class="vko">수속 · 절차</div></div>
+      <div class="vcard" onclick="this.classList.toggle('flipped')"><div class="vjp">免税</div><div class="vread">めんぜい</div><div class="vko">면세</div></div>
+    </div>
+  </div>
+
+  <!-- 문법 1 -->
+  <div class="slabel">오늘의 문법 ① — 〜に<ruby>際<rt>さい</rt></ruby>して</div>
+  <div class="grammar-panel">
+    <div class="grammar-bar">
+      <div class="gpat">〜に<ruby>際<rt>さい</rt></ruby>して</div>
+      <div class="gmean">~할 때에 · ~에 즈음하여 (격식)</div>
+    </div>
+    <div class="grammar-body">
+      <div class="gexplain">
+        「〜するとき」의 격식 표현으로, <strong style="color:var(--acc2)">계약·수속·발표처럼 특별하고 중요한 장면</strong>에 씁니다. 일상적인 일(×<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べるに<ruby>際<rt>さい</rt></ruby>して)에는 쓰지 않는 것이 최대 포인트! 「〜にあたって」와 비슷하지만 더 딱딱한 문서체로, 통관 서류·바이어 메일의 단골 표현입니다.<br>
+        <strong style="color:var(--acc2)">접속:</strong> 동사 사전형 / 명사 + に<ruby>際<rt>さい</rt></ruby>して　(例: <ruby>輸入<rt>ゆにゅう</rt></ruby>する + に<ruby>際<rt>さい</rt></ruby>して / <ruby>契約<rt>けいやく</rt></ruby> + に<ruby>際<rt>さい</rt></ruby>して)
+      </div>
+      <div class="gex"><div class="jp"><ruby>新商品<rt>しんしょうひん</rt></ruby>を<ruby>輸入<rt>ゆにゅう</rt></ruby>する<span class="hl">に<ruby>際<rt>さい</rt></ruby>して</span>、<ruby>関税<rt>かんぜい</rt></ruby>の<ruby>手続<rt>てつづ</rt></ruby>きを<ruby>確認<rt>かくにん</rt></ruby>しました。</div><div class="ko">신상품을 수입할 때에 관세 절차를 확인했습니다.</div></div>
+      <div class="gex"><div class="jp"><ruby>契約<rt>けいやく</rt></ruby><span class="hl">に<ruby>際<rt>さい</rt></ruby>して</span>、<ruby>輸送条件<rt>ゆそうじょうけん</rt></ruby>をバイヤーと<ruby>細<rt>こま</rt></ruby>かく<ruby>話<rt>はな</rt></ruby>し<ruby>合<rt>あ</rt></ruby>いました。</div><div class="ko">계약할 때에 수송 조건을 바이어와 꼼꼼히 논의했습니다.</div></div>
+      <div class="gex"><div class="jp"><ruby>通関<rt>つうかん</rt></ruby><span class="hl">に<ruby>際<rt>さい</rt></ruby>して</span>、<ruby>成分表<rt>せいぶんひょう</rt></ruby>の<ruby>提出<rt>ていしゅつ</rt></ruby>が<ruby>必要<rt>ひつよう</rt></ruby>です。</div><div class="ko">통관 시에 성분표 제출이 필요합니다.</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">오늘의 문법 ② — 〜ことになっている</div>
+  <div class="grammar-panel">
+    <div class="grammar-bar">
+      <div class="gpat">〜ことになっている</div>
+      <div class="gmean">~하게 되어 있다 (규칙 · 규정)</div>
+    </div>
+    <div class="grammar-body">
+      <div class="gexplain">
+        규칙·법률·관습으로 <strong style="color:var(--acc2)">「그렇게 정해져 있다」</strong>를 나타냅니다. 내가 정한 것이 아니라 외부에서 정해진 결정이라는 뉘앙스가 핵심! 자신의 의지로 정한 「〜ことにする」와 구별하세요. 통관·검역처럼 규정이 많은 장면에서 매일 쓰는 표현입니다.<br>
+        <strong style="color:var(--acc2)">접속:</strong> 동사 사전형 / ない형 + ことになっている　(例: <ruby>検査<rt>けんさ</rt></ruby>を<ruby>受<rt>う</rt></ruby>ける + ことになっている)
+      </div>
+      <div class="gex"><div class="jp"><ruby>化粧品<rt>けしょうひん</rt></ruby>を<ruby>輸入<rt>ゆにゅう</rt></ruby>するときは、<ruby>成分<rt>せいぶん</rt></ruby>の<ruby>検査<rt>けんさ</rt></ruby>を<ruby>受<rt>う</rt></ruby>ける<span class="hl">ことになっています</span>。</div><div class="ko">화장품을 수입할 때는 성분 검사를 받게 되어 있습니다.</div></div>
+      <div class="gex"><div class="jp"><ruby>書類<rt>しょるい</rt></ruby>は<ruby>木曜日<rt>もくようび</rt></ruby>までに<ruby>税関<rt>ぜいかん</rt></ruby>に<ruby>出<rt>だ</rt></ruby>す<span class="hl">ことになっている</span>。</div><div class="ko">서류는 목요일까지 세관에 제출하게 되어 있다.</div></div>
+      <div class="gex"><div class="jp"><ruby>免税品<rt>めんぜいひん</rt></ruby>は<ruby>日本国内<rt>にほんこくない</rt></ruby>で<ruby>転売<rt>てんばい</rt></ruby>しない<span class="hl">ことになっています</span>。</div><div class="ko">면세품은 일본 국내에서 되팔지 않게 되어 있습니다.</div></div>
+    </div>
+  </div>
+
+  <!-- 약점 코너 -->
+  <div class="slabel">약점 극복 — 통관 현장의 경어 & 수동 & 사역 & 자타동사</div>
+  <div class="weak-grid">
+    <div class="wcard">
+      <div class="wcard-title">겸양어 ご用意する</div>
+      <div class="wcard-main">ご<ruby>用意<rt>ようい</rt></ruby>する</div>
+      <div class="wcard-sub">준비해 드리다 (<ruby>用意<rt>ようい</rt></ruby>する의 겸양 표현)</div>
+      <div class="wex"><ruby>通関<rt>つうかん</rt></ruby>に<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>書類<rt>しょるい</rt></ruby>は<ruby>私<rt>わたくし</rt></ruby>どもで<span>ご<ruby>用意<rt>ようい</rt></ruby>いたします</span>。</div>
+      <div class="wko">통관에 필요한 서류는 저희 쪽에서 준비해 드리겠습니다. (내 행동을 낮춤 → 겸양어)</div>
+    </div>
+    <div class="wcard">
+      <div class="wcard-title">수동형 〜される</div>
+      <div class="wcard-main"><ruby>検査<rt>けんさ</rt></ruby>される</div>
+      <div class="wcard-sub">검사받다 (<ruby>検査<rt>けんさ</rt></ruby>する의 수동형)</div>
+      <div class="wex">サンプルは<ruby>税関<rt>ぜいかん</rt></ruby>で<ruby>厳<rt>きび</rt></ruby>しく<span><ruby>検査<rt>けんさ</rt></ruby>されました</span>。</div>
+      <div class="wko">샘플은 세관에서 엄격하게 검사받았습니다. (받는 입장 → 수동)</div>
+    </div>
+    <div class="wcard">
+      <div class="wcard-title">사역형 〜させる</div>
+      <div class="wcard-main"><ruby>準備<rt>じゅんび</rt></ruby>させる</div>
+      <div class="wcard-sub">준비하게 하다 (<ruby>準備<rt>じゅんび</rt></ruby>する의 사역형)</div>
+      <div class="wex">スタッフに<ruby>輸入書類<rt>ゆにゅうしょるい</rt></ruby>を<span><ruby>準備<rt>じゅんび</rt></ruby>させました</span>。</div>
+      <div class="wko">스태프에게 수입 서류를 준비하게 했습니다. (시키는 입장 → 사역)</div>
+    </div>
+    <div class="wcard">
+      <div class="wcard-title">자동사 / 타동사</div>
+      <div class="wcard-main"><ruby>通<rt>とお</rt></ruby>る / <ruby>通<rt>とお</rt></ruby>す</div>
+      <div class="wcard-sub">통과하다 / 통과시키다</div>
+      <div class="wex"><ruby>新商品<rt>しんしょうひん</rt></ruby>が<ruby>無事<rt>ぶじ</rt></ruby>に<ruby>税関<rt>ぜいかん</rt></ruby>を<span><ruby>通<rt>とお</rt></ruby>りました</span>。</div>
+      <div class="wko">신상품이 무사히 세관을 통과했습니다. (자동 — 물건이 지나가다)</div>
+      <div class="wex" style="margin-top:4px"><ruby>書類<rt>しょるい</rt></ruby>を<ruby>先<rt>さき</rt></ruby>に<ruby>税関<rt>ぜいかん</rt></ruby>に<span><ruby>通<rt>とお</rt></ruby>します</span>。</div>
+      <div class="wko">서류를 먼저 세관에 통과시킵니다. (타동 — 내가 통과시키다)</div>
+    </div>
+  </div>
+
+  <!-- 미션 -->
+  <div class="mission-banner">
+    <div class="mission-icon">🎯</div>
+    <div>
+      <div class="mission-title">오늘의 미션</div>
+      <div class="mission-text">
+        「〜に際して」または「〜ことになっている」를 오늘 바이어 메일이나 통관 서류 메모에서 1번 실제로 써보세요.<br>
+        퀴즈 → 문법 → 독해 → 작문 순서로 풀면 최대 <strong style="color:var(--yellow)">150pt</strong> 획득 가능합니다!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 퀴즈 ══════════ -->
+<div class="section" id="sec-quiz">
+  <div class="sec-eyebrow">QUIZ · DAY 15</div>
+  <div class="sec-h2">한자 & 어휘 퀴즈</div>
+  <div class="sec-sub">읽기 → 뜻 → 직접 입력 순으로 난이도가 올라갑니다.</div>
+  <div class="quiz-wrap" style="margin-top:24px;">
+    <div class="qprog-bar"><div class="qprog-fill" id="qpf" style="width:0%"></div></div>
+    <div id="qbox"></div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 문법 ══════════ -->
+<div class="section" id="sec-grammar">
+  <div class="sec-eyebrow">GRAMMAR · DAY 15</div>
+  <div class="sec-h2">문법 빈칸 드릴</div>
+  <div class="sec-sub">〜に際して / 〜ことになっている 와 Day 14 복습 혼합 문제입니다.</div>
+  <div class="drill-wrap" style="margin-top:24px;">
+
+    <div class="drill-card">
+      <div class="drill-type">〜に際して / 〜ことになっている 드릴</div>
+      <div class="drill-q">
+        新商品を輸入する<input class="blank" data-ans="に際して" id="b1">、関税の手続きを確認しました。
+        <div class="drill-ko">신상품을 수입할 때에(격식 표현으로!) 관세 절차를 확인했습니다.</div>
+      </div>
+      <div class="drill-q">
+        化粧品を輸入するときは、成分の検査を受ける<input class="blank" data-ans="ことになっています" id="b2">。
+        <div class="drill-ko">화장품을 수입할 때는 성분 검사를 받게 되어 있습니다. (정중형으로!)</div>
+      </div>
+      <div class="drill-q">
+        書類は木曜日までに税関に出す<input class="blank" data-ans="ことになっている" id="b3">。
+        <div class="drill-ko">서류는 목요일까지 세관에 제출하게 되어 있다. (반말 형태로!)</div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn btn-acc" onclick="chk('b1','b2','b3')">정답 확인</button>
+        <button class="btn btn-ghost" onclick="ans('b1','b2','b3')">정답 보기</button>
+      </div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">Day 14 복습 — おそれがある / 〜切る</div>
+      <div class="drill-q">
+        人気商品は今週中に在庫切れになる<input class="blank" data-ans="おそれがあります" id="b4">。
+        <div class="drill-ko">인기 상품은 이번 주 중에 재고가 소진될 우려가 있습니다. (정중형으로!)</div>
+      </div>
+      <div class="drill-q">
+        新作リップは発売初日に<input class="blank" data-ans="売り切れました" id="b5">。
+        <div class="drill-ko">신작 립은 발매 첫날에 다 팔렸습니다.</div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn btn-acc" onclick="chk('b4','b5')">정답 확인</button>
+        <button class="btn btn-ghost" onclick="ans('b4','b5')">정답 보기</button>
+      </div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">자타동사 변환 드릴 — 通る／通す</div>
+      <div class="drill-q">
+        通す（자동사로）新商品が無事に税関を<input class="blank" data-ans="通りました" id="b6">。
+        <div class="drill-ko">신상품이 무사히 세관을 통과했습니다.</div>
+      </div>
+      <div class="drill-q">
+        通る（타동사로）書類を先に税関に<input class="blank" data-ans="通します" id="b7">。
+        <div class="drill-ko">서류를 먼저 세관에 통과시킵니다.</div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn btn-acc" onclick="chk('b6','b7')">정답 확인</button>
+        <button class="btn btn-ghost" onclick="ans('b6','b7')">정답 보기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 독해 ══════════ -->
+<div class="section" id="sec-reading">
+  <div class="sec-eyebrow">READING · DAY 15</div>
+  <div class="sec-h2">読解問題</div>
+  <div class="sec-sub">다음 문장을 읽고 문제에 답하세요.</div>
+  <div style="max-width:700px;margin:24px auto 0;">
+    <div class="reading-text">
+      　私の会社は、韓国コスメを<span style="color:var(--acc2);font-weight:700">輸入</span>して東京のロフトなどに卸しています。先月、新作の美容液を輸入するに際して、初めて成分の<span style="color:var(--acc2);font-weight:700">検査</span>で問題が見つかりました。日本では、化粧品を輸入するとき、成分表を<span style="color:var(--acc2);font-weight:700">税関</span>に提出することになっています。ところが、新商品の成分表に記載ミスがあり、商品が税関で止まってしまったのです。私はすぐに韓国の本社に連絡し、正しい書類をスタッフに準備させました。翌日、修正した成分表を提出したところ、商品は無事に<span style="color:var(--acc2);font-weight:700">通関</span>できました。<span style="color:var(--acc2);font-weight:700">関税</span>の計算もやり直しましたが、幸い大きな追加費用はかかりませんでした。この経験から、輸出入のビジネスでは、<span style="color:var(--acc2);font-weight:700">手続き</span>の確認を怠らないことが何より大切だと学びました。
+    </div>
+
+    <div class="reading-q">
+      <div class="reading-qtext">問1. 商品が税関で止まってしまった原因は何ですか。</div>
+      <div class="r-choices">
+        <div class="r-choice" onclick="rchk(this,true)">① 成分表に記載ミスがあったから</div>
+        <div class="r-choice" onclick="rchk(this,false)">② 関税を払わなかったから</div>
+        <div class="r-choice" onclick="rchk(this,false)">③ 書類の提出が遅れたから</div>
+        <div class="r-choice" onclick="rchk(this,false)">④ 検査の予約を忘れたから</div>
+      </div>
+    </div>
+
+    <div class="reading-q" style="margin-top:16px;">
+      <div class="reading-qtext">問2. この文章の内容に合っているものを選んでください。</div>
+      <div class="r-choices">
+        <div class="r-choice" onclick="rchk(this,false)">① 問題のせいで大きな追加費用がかかった。</div>
+        <div class="r-choice" onclick="rchk(this,true)">② 正しい書類を出した後、商品は無事に通関できた。</div>
+        <div class="r-choice" onclick="rchk(this,false)">③ 検査の問題は韓国の本社が見つけた。</div>
+        <div class="r-choice" onclick="rchk(this,false)">④ この会社は化粧品を輸出だけしている。</div>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;">
+      <button class="btn btn-yellow" onclick="toggleKaisetsu()">📖 후리가나 · 단어 해설 보기</button>
+      <span style="font-size:11px;color:var(--muted);margin-left:10px;">문제를 모두 풀면 자동으로 열립니다</span>
+    </div>
+    <div class="kaisetsu" id="kaisetsu">
+      <div class="kaisetsu-title">본문 후리가나</div>
+      <div class="furigana-text">　<ruby>私<rt>わたし</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>は、<ruby>韓国<rt>かんこく</rt></ruby>コスメを<ruby>輸入<rt>ゆにゅう</rt></ruby>して<ruby>東京<rt>とうきょう</rt></ruby>のロフトなどに<ruby>卸<rt>おろ</rt></ruby>しています。<ruby>先月<rt>せんげつ</rt></ruby>、<ruby>新作<rt>しんさく</rt></ruby>の<ruby>美容液<rt>びようえき</rt></ruby>を<ruby>輸入<rt>ゆにゅう</rt></ruby>するに<ruby>際<rt>さい</rt></ruby>して、<ruby>初<rt>はじ</rt></ruby>めて<ruby>成分<rt>せいぶん</rt></ruby>の<ruby>検査<rt>けんさ</rt></ruby>で<ruby>問題<rt>もんだい</rt></ruby>が<ruby>見<rt>み</rt></ruby>つかりました。<ruby>日本<rt>にほん</rt></ruby>では、<ruby>化粧品<rt>けしょうひん</rt></ruby>を<ruby>輸入<rt>ゆにゅう</rt></ruby>するとき、<ruby>成分表<rt>せいぶんひょう</rt></ruby>を<ruby>税関<rt>ぜいかん</rt></ruby>に<ruby>提出<rt>ていしゅつ</rt></ruby>することになっています。ところが、<ruby>新商品<rt>しんしょうひん</rt></ruby>の<ruby>成分表<rt>せいぶんひょう</rt></ruby>に<ruby>記載<rt>きさい</rt></ruby>ミスがあり、<ruby>商品<rt>しょうひん</rt></ruby>が<ruby>税関<rt>ぜいかん</rt></ruby>で<ruby>止<rt>と</rt></ruby>まってしまったのです。<ruby>私<rt>わたし</rt></ruby>はすぐに<ruby>韓国<rt>かんこく</rt></ruby>の<ruby>本社<rt>ほんしゃ</rt></ruby>に<ruby>連絡<rt>れんらく</rt></ruby>し、<ruby>正<rt>ただ</rt></ruby>しい<ruby>書類<rt>しょるい</rt></ruby>をスタッフに<ruby>準備<rt>じゅんび</rt></ruby>させました。<ruby>翌日<rt>よくじつ</rt></ruby>、<ruby>修正<rt>しゅうせい</rt></ruby>した<ruby>成分表<rt>せいぶんひょう</rt></ruby>を<ruby>提出<rt>ていしゅつ</rt></ruby>したところ、<ruby>商品<rt>しょうひん</rt></ruby>は<ruby>無事<rt>ぶじ</rt></ruby>に<ruby>通関<rt>つうかん</rt></ruby>できました。<ruby>関税<rt>かんぜい</rt></ruby>の<ruby>計算<rt>けいさん</rt></ruby>もやり<ruby>直<rt>なお</rt></ruby>しましたが、<ruby>幸<rt>さいわ</rt></ruby>い<ruby>大<rt>おお</rt></ruby>きな<ruby>追加費用<rt>ついかひよう</rt></ruby>はかかりませんでした。この<ruby>経験<rt>けいけん</rt></ruby>から、<ruby>輸出入<rt>ゆしゅつにゅう</rt></ruby>のビジネスでは、<ruby>手続<rt>てつづ</rt></ruby>きの<ruby>確認<rt>かくにん</rt></ruby>を<ruby>怠<rt>おこた</rt></ruby>らないことが<ruby>何<rt>なに</rt></ruby>より<ruby>大切<rt>たいせつ</rt></ruby>だと<ruby>学<rt>まな</rt></ruby>びました。</div>
+      <div class="kaisetsu-title">단어 해설</div>
+      <div class="wordlist">
+        <div class="witem"><span class="wjp">卸す</span><span class="wrd">おろす</span><div class="wmn">도매로 납품하다</div></div>
+        <div class="witem"><span class="wjp">美容液</span><span class="wrd">びようえき</span><div class="wmn">에센스</div></div>
+        <div class="witem"><span class="wjp">成分表</span><span class="wrd">せいぶんひょう</span><div class="wmn">성분표</div></div>
+        <div class="witem"><span class="wjp">記載ミス</span><span class="wrd">きさいミス</span><div class="wmn">기재 실수</div></div>
+        <div class="witem"><span class="wjp">提出</span><span class="wrd">ていしゅつ</span><div class="wmn">제출</div></div>
+        <div class="witem"><span class="wjp">翌日</span><span class="wrd">よくじつ</span><div class="wmn">다음 날</div></div>
+        <div class="witem"><span class="wjp">修正</span><span class="wrd">しゅうせい</span><div class="wmn">수정</div></div>
+        <div class="witem"><span class="wjp">追加費用</span><span class="wrd">ついかひよう</span><div class="wmn">추가 비용</div></div>
+        <div class="witem"><span class="wjp">怠る</span><span class="wrd">おこたる</span><div class="wmn">게을리하다 · 소홀히 하다</div></div>
+        <div class="witem"><span class="wjp">何より</span><span class="wrd">なにより</span><div class="wmn">무엇보다</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION: 작문 ══════════ -->
+<div class="section" id="sec-sakubun">
+  <div class="sec-eyebrow">WRITING · DAY 15</div>
+  <div class="sec-h2">作文問題</div>
+  <div class="sec-sub">다음 주제로 일본어 문장을 만들어 보세요. 오늘 배운 단어를 사용하면 보너스!</div>
+  <div style="max-width:700px;margin:24px auto 0;">
+
+    <div class="drill-card">
+      <div class="drill-type">문제 1 — 20~30자 (〜に際して 사용)</div>
+      <div class="sakubun-q">"신상품을 수입할 때에 관세 절차를 확인했습니다"를 일본어로 써보세요.</div>
+      <textarea class="sakubun-input" id="sa1" placeholder="例: 新商品を…"></textarea>
+      <div class="sakubun-hint">힌트: 新商品 ／ 輸入するに際して ／ 関税の手続き ／ 確認しました</div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-acc" onclick="sbcheck('sa1',1)">제출 +20pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa1','新商品を輸入するに際して、関税の手続きを確認しました。')">모범 답안</button>
+      </div>
+      <div class="qfeedback" id="sf1"></div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">문제 2 — 20~30자 (〜ことになっている 사용)</div>
+      <div class="sakubun-q">"화장품을 수입할 때는 성분 검사를 받게 되어 있습니다"를 일본어로 써보세요.</div>
+      <textarea class="sakubun-input" id="sa2" placeholder="일본어로 써보세요..."></textarea>
+      <div class="sakubun-hint">힌트: 化粧品 ／ 輸入するときは ／ 成分の検査 ／ 受けることになっています</div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-acc" onclick="sbcheck('sa2',2)">제출 +20pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa2','化粧品を輸入するときは、成分の検査を受けることになっています。')">모범 답안</button>
+      </div>
+      <div class="qfeedback" id="sf2"></div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-type">문제 3 — 40~50자 (상급 / 오늘 표현 총동원)</div>
+      <div class="sakubun-q">今日学んだ表現を使って、自分の言葉で3つの文を作ってみよう！<br><span style="color:var(--muted);font-size:11px">~할 때에(に際して) / ~하게 되어 있다(ことになっている) / 수입(輸入) / 세관(税関) / 관세(関税) / 검사(検査) 중 3개 이상 사용</span></div>
+      <textarea class="sakubun-input" id="sa3" placeholder="자유롭게 써보세요..." style="min-height:120px;"></textarea>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-acc" onclick="sbcheck('sa3',3)">제출 +30pt</button>
+        <button class="btn btn-ghost" onclick="sbans('sa3','新商品を輸入するに際して、成分表を税関に提出しました。化粧品は成分の検査を受けることになっています。検査に通って、商品は無事に店舗に届きました。')">모범 답안</button>
+      </div>
+      <div class="qfeedback" id="sf3"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── 점수 ──
+let totalScore = 0;
+function addPt(n){ totalScore+=n; document.getElementById('sc').textContent=totalScore; }
+
+// ── 토스트 ──
+let tt;
+function toast(msg,type){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+(type||'');
+  clearTimeout(tt); tt=setTimeout(()=>el.className='toast',2300);
+}
+
+// ── 탭 전환 ──
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const m={learn:0,quiz:1,grammar:2,reading:3,sakubun:4};
+  document.querySelectorAll('.tab-btn')[m[id]].classList.add('active');
+  if(id==='quiz' && qIdx===0) renderQ();
+  window.scrollTo(0,0);
+}
+
+// ══ 캔버스 ══
+const ctxMap={}, strokeW={};
+function initC(i){
+  const c=document.getElementById('c'+i);
+  if(!c||ctxMap[i]) return;
+  const ctx=c.getContext('2d');
+  ctxMap[i]=ctx; strokeW[i]=8;
+  ctx.strokeStyle='#fbbf24'; ctx.lineWidth=8;
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  drawGrid(i);
+  let drawing=false,last=null;
+  function pos(e){
+    const r=c.getBoundingClientRect();
+    const s=e.touches?e.touches[0]:e;
+    return{x:(s.clientX-r.left)*(c.width/r.width),y:(s.clientY-r.top)*(c.height/r.height)};
+  }
+  c.addEventListener('pointerdown',e=>{drawing=true;last=pos(e);c.setPointerCapture(e.pointerId);});
+  c.addEventListener('pointermove',e=>{
+    if(!drawing)return; const p=pos(e);
+    ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;
+  });
+  c.addEventListener('pointerup',()=>drawing=false);
+  c.addEventListener('pointerleave',()=>drawing=false);
+}
+function drawGrid(i){
+  const g=document.getElementById('g'+i);
+  if(!g)return;
+  const gc=g.getContext('2d');
+  gc.clearRect(0,0,160,160);
+  gc.strokeStyle='rgba(255,255,255,.18)'; gc.lineWidth=1;
+  gc.setLineDash([3,3]);
+  gc.beginPath();gc.moveTo(80,0);gc.lineTo(80,160);gc.stroke();
+  gc.beginPath();gc.moveTo(0,80);gc.lineTo(160,80);gc.stroke();
+  gc.setLineDash([]);
+  gc.strokeStyle='rgba(255,255,255,.25)'; gc.lineWidth=1.5;
+  gc.strokeRect(1,1,158,158);
+}
+function cls(i){
+  if(ctxMap[i])ctxMap[i].clearRect(0,0,160,160);
+  drawGrid(i);
+}
+function guide(i,k){
+  const g=document.getElementById('g'+i);
+  if(!g)return;
+  const gc=g.getContext('2d');
+  drawGrid(i);
+  gc.font='110px "Noto Serif JP"';
+  gc.fillStyle='rgba(255,255,255,.22)';
+  gc.textAlign='center'; gc.textBaseline='middle';
+  gc.fillText(k,80,85);
+  toast('가이드를 보면서 따라 써보세요!','info');
+}
+[0,1,2,3].forEach(i=>initC(i));
+
+// ══ 퀴즈 데이터 ══
+const QS=[
+  {type:'read', k:'輸入', m:'수입', choices:['ゆにゅう','ゆしゅつ','つうかん','かんぜい'], ans:'ゆにゅう'},
+  {type:'read', k:'税関', m:'세관', choices:['ぜいかん','かんぜい','つうかん','めんぜい'], ans:'ぜいかん'},
+  {type:'read', k:'検査', m:'검사', choices:['けんさ','けんとう','てんけん','けんえき'], ans:'けんさ'},
+  {type:'read', k:'関税', m:'관세', choices:['かんぜい','ぜいかん','ぜいきん','しょうひぜい'], ans:'かんぜい'},
+  {type:'mean', k:'通関', r:'つうかん', choices:['통관','교통','관계','세관'], ans:'통관'},
+  {type:'mean', k:'免税', r:'めんぜい', choices:['면세','관세','납세','세금'], ans:'면세'},
+  {type:'mean', k:'手続き', r:'てつづき', choices:['수속·절차','연속','계속','접수'], ans:'수속·절차'},
+  {type:'write', prompt:'「수입」を日本語で書くと？', ans:'輸入', hint:'ゆにゅう'},
+  {type:'write', prompt:'「세관」の日本語は？', ans:'税関', hint:'ぜいかん'},
+
+];
+
+let qIdx=0, qOk=0, qNg=0, qDone=false;
+
+function renderQ(){
+  if(qIdx>=QS.length){showQResult();return;}
+  const q=QS[qIdx];
+  const pct=Math.round((qIdx/QS.length)*100);
+  document.getElementById('qpf').style.width=pct+'%';
+  let html=`<div class="qcard">`;
+  if(q.type==='read'){
+    html+=`<div class="qtype">읽는 법을 고르세요</div>
+    <div class="qmain">${q.k}</div><div class="qsub">${q.m}</div>
+    <div class="choices">${q.choices.map(c=>`<div class="choice" onclick="qchoice(this,'${c}','${q.ans}')">${c}</div>`).join('')}</div>`;
+  } else if(q.type==='mean'){
+    html+=`<div class="qtype">뜻을 고르세요</div>
+    <div class="qmain">${q.k}</div><div class="qsub">${q.r}</div>
+    <div class="choices">${q.choices.map(c=>`<div class="choice" onclick="qchoice(this,'${c}','${q.ans}')">${c}</div>`).join('')}</div>`;
+  } else {
+    html+=`<div class="qtype">직접 입력하세요</div>
+    <div class="qsub" style="font-size:15px;color:var(--text);margin-bottom:16px;">${q.prompt}</div>
+    <input class="qinput" id="qi" placeholder="${q.hint}">
+    <div class="qfeedback" id="qf"></div>`;
+  }
+  html+=`</div><div class="qactions">`;
+  if(q.type==='write') html+=`<button class="btn btn-acc" onclick="qwrite()">확인</button>`;
+  html+=`<button class="btn btn-ghost" id="nxtBtn" style="display:none" onclick="nxtQ()">다음 →</button></div>`;
+  document.getElementById('qbox').innerHTML=html;
+  qDone=false;
+  const qi=document.getElementById('qi');
+  if(qi) qi.addEventListener('keydown',e=>{if(e.key==='Enter')qwrite();});
+}
+
+function qchoice(el,chosen,ans){
+  if(qDone)return; qDone=true;
+  document.querySelectorAll('.choice').forEach(c=>c.classList.add('disabled'));
+  if(chosen===ans){el.classList.add('correct');addPt(10);qOk++;toast('정답! +10pt ✅','ok');}
+  else{
+    el.classList.add('wrong'); qNg++;
+    document.querySelectorAll('.choice').forEach(c=>{if(c.textContent===ans)c.classList.add('show-ans');});
+    toast('틀렸습니다 ❌','ng');
+  }
+  document.getElementById('nxtBtn').style.display='inline-block';
+}
+
+function qwrite(){
+  if(qDone)return; qDone=true;
+  const q=QS[qIdx]; const v=document.getElementById('qi').value.trim();
+  const fb=document.getElementById('qf'); const inp=document.getElementById('qi');
+  if(v===q.ans){
+    inp.classList.add('correct');
+    fb.className='qfeedback ok'; fb.textContent='✅ 정답! 「'+q.ans+'」';
+    addPt(15); qOk++; toast('정답! +15pt ✅','ok');
+  } else {
+    inp.classList.add('wrong');
+    fb.className='qfeedback ng'; fb.textContent='❌ 정답: 「'+q.ans+'」';
+    qNg++; toast('틀렸습니다 ❌','ng');
+  }
+  document.getElementById('nxtBtn').style.display='inline-block';
+}
+
+function nxtQ(){ qIdx++; renderQ(); }
+
+function showQResult(){
+  document.getElementById('qpf').style.width='100%';
+  const pct=Math.round((qOk/QS.length)*100);
+  const emoji=pct>=80?'🎉':pct>=60?'💪':'📚';
+  const msg=pct>=80?'훌륭합니다! N2 합격 레벨입니다!':pct>=60?'좋습니다! 조금 더 복습해보세요.':'오늘 학습 카드를 다시 복습해보세요!';
+  document.getElementById('qbox').innerHTML=`
+    <div class="result-wrap">
+      <div class="res-emoji">${emoji}</div>
+      <div class="res-score">${pct}%</div>
+      <div class="res-msg">${msg}</div>
+      <div class="res-grid">
+        <div class="ritem"><div class="rnum" style="color:var(--green)">${qOk}</div><div class="rlbl">정답</div></div>
+        <div class="ritem"><div class="rnum" style="color:var(--red)">${qNg}</div><div class="rlbl">오답</div></div>
+        <div class="ritem"><div class="rnum" style="color:var(--yellow)">${totalScore}</div><div class="rlbl">총점수</div></div>
+      </div>
+      <button class="btn btn-acc" onclick="restartQ()" style="margin-right:10px">다시 풀기 🔄</button>
+      <button class="btn btn-ghost" onclick="show('grammar')">문법 드릴 →</button>
+    </div>`;
+}
+
+function restartQ(){ qIdx=0; qOk=0; qNg=0; renderQ(); }
+
+// ══ 드릴 ══
+function chk(...ids){
+  let all=true;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    const v=el.value.trim(); el.classList.remove('ok','ng');
+    if(v===el.dataset.ans){el.classList.add('ok');}
+    else{el.classList.add('ng');all=false;}
+  });
+  if(all){addPt(20);toast('전부 정답! +20pt 🎉','ok');}
+  else toast('틀린 곳을 확인하세요 ❌','ng');
+}
+function ans(...ids){
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    el.value=el.dataset.ans; el.classList.add('ok');
+  });
+}
+
+// ══ 독해 ══
+let rAnswered=0;
+function toggleKaisetsu(){ document.getElementById('kaisetsu').classList.toggle('open'); }
+function rchk(el,correct){
+  const group=el.closest('.r-choices');
+  group.querySelectorAll('.r-choice').forEach(c=>{c.classList.add('disabled');});
+  if(correct){el.classList.add('correct');addPt(15);toast('정답! +15pt ✅','ok');}
+  else{
+    el.classList.add('wrong');
+    group.querySelectorAll('.r-choice').forEach(c=>{
+      if(c.getAttribute('onclick').includes('true'))c.classList.add('show-ans');
+    });
+    toast('틀렸습니다 ❌','ng');
+  }
+  rAnswered++;
+  if(rAnswered===2){
+    document.getElementById('kaisetsu').classList.add('open');
+    setTimeout(()=>toast('📖 해설이 열렸습니다! 후리가나와 단어를 확인하세요.','info'),1400);
+  }
+}
+
+// ══ 작문 ══
+const SB={
+  sa1:{pts:20, req:[['に際して','「〜に際して」를 사용해보세요 (例: 輸入するに際して)'],['輸入','「輸入」를 넣어보세요']]},
+  sa2:{pts:20, req:[['ことになってい','「〜ことになっている」를 사용해보세요 (例: 受けることになっています)'],['検査','「検査」를 넣어보세요']]},
+  sa3:{pts:30, any:[['に際して','に際して(~할 때에)'],['ことになって','ことになっている(~하게 되어 있다)'],['輸入','輸入(수입)'],['税関','税関(세관)'],['関税','関税(관세)'],['検査','検査(검사)']], anyMin:3, sent:3}
+
+};
+let sbAwarded={};
+function sbEval(id){
+  const v=document.getElementById(id).value.trim();
+  const cfg=SB[id]; const lines=[]; let pass=true;
+  if(cfg.req){
+    cfg.req.forEach(([pat,tip])=>{
+      if(v.includes(pat)) lines.push('✅ 「'+pat+'」 사용');
+      else {lines.push('❌ '+tip); pass=false;}
+    });
+  }
+  if(cfg.any){
+    const used=cfg.any.filter(([pat])=>v.includes(pat));
+    used.forEach(([pat])=>lines.push('✅ 「'+pat+'」 사용'));
+    if(used.length<cfg.anyMin){
+      pass=false;
+      const missing=cfg.any.filter(([pat])=>!v.includes(pat)).map(([,l])=>l).join(' · ');
+      lines.push('❌ 오늘의 표현 '+used.length+'/'+cfg.anyMin+'개 사용 — 후보: '+missing);
+    }
+  }
+  if(cfg.sent){
+    const cnt=v.split('。').filter(s=>s.trim().length>1).length;
+    if(cnt>=cfg.sent) lines.push('✅ 문장 '+cnt+'개 완성');
+    else {lines.push('❌ 문장이 '+cnt+'개예요 — 「。」로 끝나는 문장을 '+cfg.sent+'개 만들어보세요'); pass=false;}
+  }
+  return {v:v, lines:lines, pass:pass};
+}
+function sbcheck(id,n){
+  const fb=document.getElementById('sf'+n);
+  const r=sbEval(id);
+  if(r.v.length<5){fb.className='qfeedback ng';fb.textContent='문장을 입력해주세요.';return;}
+  if(r.pass){
+    if(!sbAwarded[id]){ addPt(SB[id].pts); sbAwarded[id]=true; toast('통과! +'+SB[id].pts+'pt 🎉','ok'); }
+    else toast('이미 점수를 받은 문제예요 ✅','info');
+    fb.className='qfeedback ok';
+    fb.innerHTML='🎉 모든 조건 통과! 훌륭합니다.<br>'+r.lines.join('<br>');
+  } else {
+    fb.className='qfeedback ng';
+    fb.innerHTML='조금만 더! 피드백을 보고 고쳐서 다시 제출해보세요.<br>'+r.lines.join('<br>');
+    toast('피드백을 확인하세요 ✍️','info');
+  }
+}
+// 실시간 피드백 — 입력하는 동안 자동 체크
+const sbTimers={};
+['sa1','sa2','sa3'].forEach((id,ix)=>{
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('input',()=>{
+    clearTimeout(sbTimers[id]);
+    sbTimers[id]=setTimeout(()=>{
+      const fb=document.getElementById('sf'+(ix+1));
+      const r=sbEval(id);
+      if(r.v.length<2){ fb.className='qfeedback'; fb.innerHTML=''; return; }
+      fb.className='qfeedback '+(r.pass?'ok':'ng');
+      fb.innerHTML=(r.pass?'🎉 조건 통과! 「제출」 버튼을 눌러 점수를 받으세요.':'✍️ 실시간 체크 중...')+'<br>'+r.lines.join('<br>');
+    },350);
+  });
+});
+function sbans(id,ans){
+  document.getElementById(id).value=ans;
+  toast('모범 답안을 확인하세요.','info');
+}
+
+// ══ 한자 스토리 애니메이션 (연출 강화판) ══
+const KANIM=[
+  {parts:[['-15%',32,'18%',32],['108%',32,'62%',32]],
+   props:[{ch:'🚛',f:[44,10],t:[44,60]}],
+   caps:['① 車 = 수레','② 兪 = 옮기다·나르다','③ 수레에 실어 배까지 나른다!','완성! 輸 = 나르다 → 輸入・輸出!']},
+  {parts:[['-15%',32,'18%',32],['108%',32,'60%',32]],
+   props:[{ch:'🚧',f:[82,78],t:[44,52]}],
+   caps:['① 門 = 문','② 关 = 빗장','③ 문에 빗장을 걸어 짐을 검사한다!','완성! 関 = 관문 → 税関・通関!']},
+  {parts:[['-15%',32,'18%',32],['108%',32,'60%',32]],
+   props:[{ch:'💰',f:[44,10],t:[44,60]}],
+   caps:['① 禾 = 벼·곡식','② 兌 = 바꾸다·바치다','③ 수확한 벼를 나라에 바친다!','완성! 税 = 세금 → 関税・免税!']},
+  {parts:[['-15%',32,'18%',32],['108%',32,'60%',32]],
+   props:[{ch:'🔍',f:[44,10],t:[44,55]}],
+   caps:['① 木 = 나무 상자','② 僉 = 여럿이 모두','③ 상자를 다 같이 살펴본다!','완성! 検 = 검사 → 検査・点検!']}
+
+];
+const kanimT={};
+function ktype(el,txt){
+  clearInterval(el._iv); let i=0; el.textContent='';
+  el._iv=setInterval(()=>{el.textContent=txt.slice(0,++i);if(i>=txt.length)clearInterval(el._iv);},26);
+}
+function kfly(stage,cfg){
+  const el=document.createElement('div');
+  el.textContent=cfg.ch; el.className='kanim-fx';
+  el.style.cssText='position:absolute;font-size:26px;line-height:1;pointer-events:none;z-index:3;';
+  stage.appendChild(el);
+  const W=stage.offsetWidth,H=stage.offsetHeight;
+  const fx=cfg.f[0]/100*W, fy=cfg.f[1]/100*H, tx=cfg.t[0]/100*W, ty=cfg.t[1]/100*H;
+  const t0=performance.now(), dur=cfg.dur||950;
+  function step(t){
+    const p=Math.min((t-t0)/dur,1);
+    el.style.left=(fx+(tx-fx)*p)+'px';
+    el.style.top=(fy+(ty-fy)*p-30*Math.sin(Math.PI*p))+'px';
+    if(cfg.spin) el.style.transform='rotate('+(p*360)+'deg)';
+    if(p<1)requestAnimationFrame(step); else setTimeout(()=>el.remove(),300);
+  }
+  requestAnimationFrame(step);
+}
+function kburst(host){
+  const c=document.createElement('canvas');
+  c.width=host.offsetWidth||300; c.height=host.offsetHeight||110;
+  c.className='kanim-fx';
+  c.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;';
+  host.appendChild(c);
+  const x=c.getContext('2d');
+  const cols=['#fbbf24','#f87171','#34d399','#60a5fa','#f472b6'];
+  const P=Array.from({length:50},()=>({x:c.width/2,y:c.height/2,vx:(Math.random()-.5)*6,vy:-Math.random()*4.5-1.5,s:3+Math.random()*4,r:Math.random()*6,cl:cols[Math.floor(Math.random()*5)]}));
+  const t0=performance.now();
+  function f(t){
+    x.clearRect(0,0,c.width,c.height);
+    P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.cl;x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.restore();});
+    if((t-t0)<1500)requestAnimationFrame(f); else c.remove();
+  }
+  requestAnimationFrame(f);
+}
+function playKanim(i){
+  const cfg=KANIM[i];
+  const stage=document.getElementById('kst'+i), cap=document.getElementById('kcap'+i);
+  (kanimT[i]||[]).forEach(clearTimeout); const tm=kanimT[i]=[];
+  clearInterval(cap._iv);
+  stage.querySelectorAll('.kanim-fx').forEach(e=>e.remove());
+  const parts=stage.querySelectorAll('.kanim-part'), res=stage.querySelector('.kanim-res');
+  parts.forEach((p,j)=>{const c=cfg.parts[j];p.style.transition='none';p.style.opacity=0;p.style.left=c[0];p.style.top=c[1]+'px';});
+  res.style.opacity=0; res.style.transition='none'; res.style.transform='scale(2.4)';
+  cap.textContent='';
+  void stage.offsetWidth;
+  let t=250;
+  parts.forEach((p,j)=>{
+    tm.push(setTimeout(()=>{
+      const c=cfg.parts[j];
+      p.style.transition='all .55s cubic-bezier(.34,1.56,.64,1)';
+      p.style.opacity=1; p.style.left=c[2]; p.style.top=c[3]+'px';
+      ktype(cap,cfg.caps[j]);
+    },t));
+    t+=1350;
+  });
+  tm.push(setTimeout(()=>{
+    (cfg.props||[]).forEach(pr=>kfly(stage,pr));
+    ktype(cap,cfg.caps[parts.length]);
+  },t)); t+=1450;
+  tm.push(setTimeout(()=>{
+    parts.forEach(p=>p.style.opacity=0);
+    res.style.transition='all .35s ease-out'; res.style.opacity=1; res.style.transform='scale(1)';
+    stage.style.animation='none'; void stage.offsetWidth; stage.style.animation='kshk .3s ease';
+    kburst(stage);
+    ktype(cap,cfg.caps[parts.length+1]);
+  },t));
+}
+
+// ══ 부수 조립 미니게임 ══
+const KG=[
+  {res:'輸',need:['車','兪'],label:'Q1. 「수입」의 輸 — 수레(?)로 짐을 옮긴다(?)'},
+  {res:'関',need:['門','关'],label:'Q2. 「세관」의 関 — 문(?)에 빗장(?)을 건다'},
+  {res:'税',need:['禾','兌'],label:'Q3. 「관세」의 税 — 벼(?)를 바친다(?)'},
+  {res:'検',need:['木','僉'],label:'Q4. 「검사」의 検 — 나무 상자(?)를 여럿이(?) 살핀다'}
+
+];
+let kgR=0, kgSel=[];
+function kgShow(){
+  const T=document.getElementById('kgT'),C=document.getElementById('kgC'),Fb=document.getElementById('kgF');
+  if(kgR>=KG.length){T.textContent='';C.textContent='🏆';Fb.textContent='4자 모두 조립 완료! 대단합니다 (+40pt)';return;}
+  T.textContent=KG[kgR].label+'　('+(kgR+1)+'/4 · 조각 '+KG[kgR].need.length+'개)';
+  C.textContent='？'; C.style.color=''; Fb.textContent='애니메이션에서 본 스토리를 떠올려 보세요'; kgSel=[];
+}
+function kgPick(el){
+  if(kgR>=KG.length) return;
+  const ch=el.textContent;
+  if(el.classList.contains('sel')){el.classList.remove('sel');kgSel=kgSel.filter(c=>c!==ch);return;}
+  el.classList.add('sel'); kgSel.push(ch);
+  const need=KG[kgR].need;
+  if(kgSel.length<need.length) return;
+  const ok=need.every(c=>kgSel.includes(c));
+  const C=document.getElementById('kgC'), P=document.getElementById('kgP');
+  if(ok){
+    document.querySelectorAll('.kg-piece.sel').forEach(e=>{e.classList.remove('sel');e.classList.add('used');});
+    C.textContent=KG[kgR].res; C.style.color='#fbbf24';
+    C.style.animation='none'; void C.offsetWidth; C.style.animation='kshk .3s ease';
+    kburst(C); addPt(10); toast('조립 성공! +10pt 🎉','ok');
+    kgR++; setTimeout(kgShow,1500);
+  } else {
+    P.style.animation='none'; void P.offsetWidth; P.style.animation='kshk .3s ease';
+    toast('그 조합이 아니에요 — 다시!','ng');
+    setTimeout(()=>{document.querySelectorAll('.kg-piece.sel').forEach(e=>e.classList.remove('sel'));kgSel=[];},450);
+  }
+}
+(function kgInit(){
+  const P=document.getElementById('kgP'); if(!P) return;
+  const pool=['車','兪','門','关','禾','兌','木','僉'].sort(()=>Math.random()-.5);
+  P.innerHTML=pool.map(ch=>'<span class="kg-piece" onclick="kgPick(this)">'+ch+'</span>').join('');
+  kgShow();
+})();
+</script>
+</body>
+</html>
